@@ -10,6 +10,7 @@
         <variable
             name="viewModel"
             type="com.schedule.model.NewTaskViewModel" />
+        <import type="com.schedule.tools.TimePicker"/>
     </data>
 
 
@@ -39,6 +40,7 @@
             android:id="@+id/timePicker2"
             android:layout_width="wrap_content"
             app:defaultValue="@{viewModel.defaultValue}"
+            app:onTimeChanged="@{(view, hour, minute) -> viewModel.onNumChange(view, hour, minute)}"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
