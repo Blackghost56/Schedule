@@ -56,5 +56,19 @@ public class TimePicker extends FrameLayout {
         minutePicker.setFormatter(TWO_DIGIT_FORMATTER);
 
 
+        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TimePicker, defStyleAttr, defStyleRes);
+
+        int value;
+        try {
+//            this.minValue = attributes.getInt(R.styleable.TimePicker_minValue, 0);
+//            this.maxValue = attributes.getInt(R.styleable.TimePicker_maxValue, 0);
+            value = attributes.getInt(R.styleable.TimePicker_defaultValue, 0);
+            Log.d(TAG, "value: " + value);
+        } finally {
+            attributes.recycle();
+        }
+        hourPicker.setValue(value);
+
+
     }
 }
