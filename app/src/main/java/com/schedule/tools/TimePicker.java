@@ -17,9 +17,18 @@ import androidx.databinding.BindingAdapter;
 
 import com.schedule.R;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class TimePicker extends FrameLayout {
 
     private final String TAG = TimePicker.class.getSimpleName();
+
+    public static final int INIT_DEFAULT        = 1;
+    public static final int INIT_VALUE          = 2;
+    public static final int INIT_CURRENT_TIME   = 3;
+
+    public static final int INIT_VALUE_MAX      = 1440;         // Minute at day
 
     // ui components
     private final NumberPicker hourPicker;
@@ -80,42 +89,41 @@ public class TimePicker extends FrameLayout {
             onTimeChanged();
         });
 
-//        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TimePicker, defStyleAttr, defStyleRes);
-//
-//        int value;
-//        try {
-////            this.minValue = attributes.getInt(R.styleable.TimePicker_minValue, 0);
-////            this.maxValue = attributes.getInt(R.styleable.TimePicker_maxValue, 0);
-//            value = attributes.getInt(R.styleable.TimePicker_defaultValue, 0);
-//            Log.d(TAG, "value: " + value);
-//        } finally {
-//            attributes.recycle();
-//        }
-//        hourPicker.setValue(value);
 
+        TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TimePicker, defStyleAttr, defStyleRes);
 
-    }
+        int initMode, initValue;
+        try {
+            initMode = attributes.getInt(R.styleable.TimePicker_initValueMode, INIT_DEFAULT);
+            initValue = attributes.getInt(R.styleable.TimePicker_initValue, 0);
+        } finally {
+            attributes.recycle();
+        }
 
-
-    public int isDefaultValue() {
-        Log.d(TAG, "isDefaultValue: ");
-        return hourPicker.getValue();
-    }
-
-    public void setDefaultValue(int value) {
-        Log.d(TAG, "setDefaultValue: " + value);
-        hourPicker.setValue(value);
-        invalidate();
-        requestLayout();
+        switch (initMode){
+            case INIT_VALUE:
+                if (initValue < INIT_VALUE_MAX || initValue > 0){
+                    int min = initValue % 60;
+                    int hour = initValue / 60;
+                    hourPicker.setValue(hour);
+                    minutePicker.setValue(min);
+                }
+                break;
+            case INIT_CURRENT_TIME:
+                Calendar calendar = GregorianCalendar.getInstance();
+                hourPicker.setValue(calendar.get(Calendar.HOUR_OF_DAY));
+                minutePicker.setValue(calendar.get(Calendar.MINUTE));
+                break;
+            default:
+                break;
+        }
     }
 
 
     @BindingAdapter("onTimeChanged")
-//        @BindingAdapter("app:onTimeChanged")
     public static void setOnTimeChanged(TimePicker timePicker, OnTimeChangedListener listener) {
         timePicker.setOnTimeChangedListener(listener);
     }
-
 
 
     private void onTimeChanged(){
