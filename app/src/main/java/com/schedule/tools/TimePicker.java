@@ -120,12 +120,6 @@ public class TimePicker extends FrameLayout {
     }
 
 
-    @BindingAdapter("onTimeChanged")
-    public static void setOnTimeChanged(TimePicker timePicker, OnTimeChangedListener listener) {
-        timePicker.setOnTimeChangedListener(listener);
-    }
-
-
     private void onTimeChanged(){
         if (onTimeChangedListener != null)
             onTimeChangedListener.onTimeChanged(this, hourPicker.getValue(), minutePicker.getValue());
