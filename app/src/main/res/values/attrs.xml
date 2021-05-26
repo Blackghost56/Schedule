@@ -4,7 +4,16 @@
     <declare-styleable name="TimePicker">
 <!--        <attr name="maxValue" format="integer" />-->
 <!--        <attr name="minValue" format="integer" />-->
+
+        <!-- Test text -->
         <attr name="defaultValue" format="integer" />
+
+<!--        <attr name="timePickerMode">-->
+<!--            &lt;!&ndash; Time picker with spinner controls to select the time. &ndash;&gt;-->
+<!--            <enum name="currentTime" value="1" />-->
+<!--            &lt;!&ndash; Time picker with clock face to select the time. &ndash;&gt;-->
+<!--            <enum name="zero" value="2" />-->
+<!--        </attr>-->
     </declare-styleable>
 
 </resources>

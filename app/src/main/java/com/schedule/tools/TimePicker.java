@@ -3,6 +3,8 @@ package com.schedule.tools;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,5 +129,96 @@ public class TimePicker extends FrameLayout {
      */
     public void setOnTimeChangedListener(OnTimeChangedListener onTimeChangedListener) {
         this.onTimeChangedListener = onTimeChangedListener;
+    }
+
+    /**
+     * @return The hour (0-23).
+     */
+    public Integer getHour() {
+        return hourPicker.getValue();
+    }
+
+    /**
+     * Set the hour.
+     */
+    public void setHour(Integer hour) {
+        hourPicker.setValue(hour);
+        onTimeChanged();
+    }
+
+    /**
+     * @return The minute.
+     */
+    public Integer getMinute() {
+        return minutePicker.getValue();
+    }
+
+    /**
+     * Set the minute (0-59).
+     */
+    public void setMinute(Integer minute) {
+        minutePicker.setValue(minute);
+        onTimeChanged();
+    }
+
+
+    /**
+     * Used to save / restore state of time picker
+     */
+    private static class SavedState extends BaseSavedState {
+
+        private final int hour;
+        private final int minute;
+
+        private SavedState(Parcelable superState, int hour, int minute) {
+            super(superState);
+            this.hour = hour;
+            this.minute = minute;
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            hour = in.readInt();
+            minute = in.readInt();
+        }
+
+        public int getHour() {
+            return hour;
+        }
+
+        public int getMinute() {
+            return minute;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(hour);
+            dest.writeInt(minute);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR  = new Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        return new SavedState(superState, getHour(), getMinute());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        setHour(ss.getHour());
+        setMinute(ss.getMinute());
     }
 }
