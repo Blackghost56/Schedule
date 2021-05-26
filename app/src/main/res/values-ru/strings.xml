@@ -11,5 +11,9 @@
     <string name="schedule_repeat_friday">Пятница</string>
     <string name="schedule_repeat_saturday">Суббота</string>
     <string name="schedule_repeat_sunday">Воскресение</string>
+    <string name="schedule_hour">ч</string>
+    <string name="schedule_minute">мин</string>
+    <string name="schedule_in_a">Через</string>
+    <string name="schedule_day">д</string>
 
 </resources>

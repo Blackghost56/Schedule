@@ -14,9 +14,4 @@ public class BindingTools {
     }
 
 
-
-    @BindingAdapter("onCheckedChange")
-    public static void setOnCheckedChange(ChipGroup chipGroup, ChipGroup.OnCheckedChangeListener listener) {
-        chipGroup.setOnCheckedChangeListener(listener);
-    }
 }

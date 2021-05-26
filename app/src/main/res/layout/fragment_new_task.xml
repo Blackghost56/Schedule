@@ -10,7 +10,7 @@
         <variable
             name="viewModel"
             type="com.schedule.model.NewTaskViewModel" />
-        <import type="com.schedule.tools.TimePicker"/>
+        <import type="android.view.View"/>
     </data>
 
 
@@ -21,23 +21,24 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
-        android:id="@+id/frameLayout"
+        android:id="@+id/Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         tools:context=".NewTask">
 
 
         <com.schedule.tools.TimePicker
-            android:id="@+id/timePicker2"
+            android:id="@+id/timePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:initValueMode="currentTime"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.22000003"
-            app:onTimeChanged="@{(view, hour, minute) -> viewModel.onNumChange(view, hour, minute)}">
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:onTimeChanged="@{(view, hour, minute) -> viewModel.onNumChange(hour, minute)}">
 
         </com.schedule.tools.TimePicker>
 
@@ -45,103 +46,146 @@
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/chipGroup2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timePicker2"
-            app:layout_constraintVertical_bias="0.120000005"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
             app:selectionRequired="true"
-            app:singleSelection="true"
-            app:onCheckedChange="@{(group, checkedId) -> viewModel.onCheckedChange(group, checkedId)}"
-            >
+            app:singleSelection="true">
 
-<!--            android:onClick="@{viewModel}"-->
+
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipOnce"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/schedule_repeat_once" />
+                android:checked="@={viewModel.stateOnce}"
+                android:onClick="@{() -> viewModel.onOncePressed()}"
+                android:text="@string/schedule_repeat_once"
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipDaily"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/schedule_repeat_daily" />
+                app:chipIcon="@drawable/ic_round_repeat_one_24"
+                app:chipIconVisible="true" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipWeekdays"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/schedule_repeat_weekdays" />
+                android:checked="@={viewModel.stateWeekdays}"
+                android:onClick="@{() -> viewModel.onWeekdaysPressed()}"
+                android:text="@string/schedule_repeat_weekdays"
+                app:chipIcon="@drawable/ic_round_repeat_five_24"
+                app:chipIconVisible="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDaily"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.stateDaily}"
+                android:onClick="@{() -> viewModel.onDailyPressed()}"
+                android:text="@string/schedule_repeat_daily"
+                app:chipIcon="@drawable/ic_round_repeat_24"
+                app:chipIconVisible="true" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipSelectDays"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/schedule_repeat_select_days" />
+                android:checked="@={viewModel.stateSelectDays}"
+                android:onClick="@{() -> viewModel.onSelectDaysPressed()}"
+                android:text="@string/schedule_repeat_select_days"
+                app:chipIcon="@drawable/ic_round_checklist_rtl_24"
+                app:chipIconVisible="true" />
 
         </com.google.android.material.chip.ChipGroup>
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{viewModel.enableDays ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup"
             app:layout_constraintVertical_bias="0.13999999"
-            app:selectionRequired="true"
-            >
+            app:selectionRequired="true">
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="@={viewModel.stateMonday}"
                 android:text="@string/schedule_repeat_monday" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@={viewModel.stateTuesday}"
                 android:text="@string/schedule_repeat_tuesday" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@={viewModel.stateWednesday}"
                 android:text="@string/schedule_repeat_wednesday" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@={viewModel.stateThursday}"
                 android:text="@string/schedule_repeat_thursday" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@={viewModel.stateFriday}"
                 android:text="@string/schedule_repeat_friday" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@={viewModel.stateSaturday}"
                 android:text="@string/schedule_repeat_saturday" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@={viewModel.stateSunday}"
                 android:text="@string/schedule_repeat_sunday" />
 
         </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.leftTimeText}"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/timePicker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

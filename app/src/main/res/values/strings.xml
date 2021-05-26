@@ -11,6 +11,10 @@
     <string name="schedule_repeat_friday">Friday</string>
     <string name="schedule_repeat_saturday">Saturday</string>
     <string name="schedule_repeat_sunday">Sunday</string>
+    <string name="schedule_minute">min</string>
+    <string name="schedule_hour">h</string>
+    <string name="schedule_in_a">In a</string>
+    <string name="schedule_day">d</string>
 
 
 </resources>
