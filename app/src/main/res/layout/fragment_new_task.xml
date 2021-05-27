@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateOnce}"
-                android:onClick="@{() -> viewModel.onOncePressed()}"
+                android:onClick="@{() -> viewModel.onModePressed()}"
                 android:text="@string/schedule_repeat_once"
 
                 app:chipIcon="@drawable/ic_round_repeat_one_24"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateWeekdays}"
-                android:onClick="@{() -> viewModel.onWeekdaysPressed()}"
+                android:onClick="@{() -> viewModel.onModePressed()}"
                 android:text="@string/schedule_repeat_weekdays"
                 app:chipIcon="@drawable/ic_round_repeat_five_24"
                 app:chipIconVisible="true" />
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateDaily}"
-                android:onClick="@{() -> viewModel.onDailyPressed()}"
+                android:onClick="@{() -> viewModel.onModePressed()}"
                 android:text="@string/schedule_repeat_daily"
                 app:chipIcon="@drawable/ic_round_repeat_24"
                 app:chipIconVisible="true" />
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateSelectDays}"
-                android:onClick="@{() -> viewModel.onSelectDaysPressed()}"
+                android:onClick="@{() -> viewModel.onModePressed()}"
                 android:text="@string/schedule_repeat_select_days"
                 app:chipIcon="@drawable/ic_round_checklist_rtl_24"
                 app:chipIconVisible="true" />
@@ -115,13 +115,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup"
             app:layout_constraintVertical_bias="0.13999999"
-            app:selectionRequired="true">
+            app:selectionRequired="true"
+            >
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateMonday}"
+                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_monday" />
 
             <com.google.android.material.chip.Chip
@@ -129,6 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateTuesday}"
+                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_tuesday" />
 
             <com.google.android.material.chip.Chip
@@ -136,6 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateWednesday}"
+                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_wednesday" />
 
             <com.google.android.material.chip.Chip
@@ -143,6 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateThursday}"
+                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_thursday" />
 
             <com.google.android.material.chip.Chip
@@ -150,6 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateFriday}"
+                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_friday" />
 
             <com.google.android.material.chip.Chip
@@ -157,6 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateSaturday}"
+                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_saturday" />
 
             <com.google.android.material.chip.Chip
@@ -164,6 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateSunday}"
+                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_sunday" />
 
         </com.google.android.material.chip.ChipGroup>
