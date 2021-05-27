@@ -46,6 +46,7 @@ public class NewTaskViewModel extends AndroidViewModel {
         Calendar calendar = GregorianCalendar.getInstance();
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+        updateLeftTime();
     }
 
     public void onNumChange(int hour, int minute){
