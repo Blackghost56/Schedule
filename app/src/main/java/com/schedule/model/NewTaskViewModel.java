@@ -3,6 +3,7 @@ package com.schedule.model;
 import android.app.Application;
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
@@ -21,16 +22,10 @@ import java.util.List;
 
 public class NewTaskViewModel extends AndroidViewModel {
 
-//    final private String TAG = NewTaskViewModel.class.getSimpleName();
+    final private String TAG = NewTaskViewModel.class.getSimpleName();
 
     public ObservableField<String> leftTimeText = new ObservableField<>("");
 
-//    public ObservableBoolean stateOnce = new ObservableBoolean(true);
-//    public ObservableBoolean stateDaily = new ObservableBoolean(false);
-//    public ObservableBoolean stateWeekdays = new ObservableBoolean(false);
-//    public ObservableBoolean stateSelectDays = new ObservableBoolean(false);
-//
-//    public ObservableBoolean enableDays = new ObservableBoolean(false);
 
     public ObservableBoolean stateMonday = new ObservableBoolean(false);
     public ObservableBoolean stateTuesday = new ObservableBoolean(false);
@@ -65,86 +60,28 @@ public class NewTaskViewModel extends AndroidViewModel {
     }
 
 
-//    public void onModePressed(){
-//        daysViewUpdate();
-//        updateLeftTime();
-//    }
+    public void onRepeatChanged(boolean isChecked) {
+        Log.d(TAG, "onRepeatChanged: " + isChecked);
+    }
+
 
     public void onSelectDaysGroupPressed(){
         updateLeftTime();
     }
 
-//    private void daysViewUpdate(){
-//        enableDays.set(stateSelectDays.get());
-//        updateLeftTime();
-//    }
 
     private final int MINUTE_IN_HOUR = 60;
     private final int HOUR_IN_DAY = 24;
     private final int MINUTE_IN_DAY = MINUTE_IN_HOUR * HOUR_IN_DAY;
 
-    // ToDo Rewrite the algorithm in a more concise way
+
     private void updateLeftTime(){
         Calendar calendar = GregorianCalendar.getInstance();
         final int currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         final int currentMinute =  calendar.get(Calendar.MINUTE);
 
-//        final int currentTimeInMinute = currentHour * MINUTE_IN_HOUR + currentMinute;
-//        final int timeInMinute = hour * MINUTE_IN_HOUR + minute;
-
         int delta = 0;
-//        if (stateOnce.get() || stateDaily.get()){
-//            if (timeInMinute < currentTimeInMinute){
-//                delta = MINUTE_IN_DAY - currentTimeInMinute + timeInMinute;
-//            } else {
-//                delta = timeInMinute - currentTimeInMinute;
-//            }
-//        }
-//
-//        if (stateWeekdays.get()){
-//            if (timeInMinute < currentTimeInMinute){
-//                switch (currentDayOfWeek){
-//                    case Calendar.FRIDAY:
-//                        delta = MINUTE_IN_DAY - currentTimeInMinute + timeInMinute + MINUTE_IN_DAY * 2;
-//                        break;
-//                    case Calendar.SATURDAY:
-//                        delta = MINUTE_IN_DAY - currentTimeInMinute + timeInMinute + MINUTE_IN_DAY;
-//                        break;
-//                    default:
-//                        delta = MINUTE_IN_DAY - currentTimeInMinute + timeInMinute;
-//                }
-//            } else {
-//                switch (currentDayOfWeek){
-//                    case Calendar.SATURDAY:
-//                        delta = timeInMinute - currentTimeInMinute + MINUTE_IN_DAY * 2;
-//                        break;
-//                    case Calendar.SUNDAY:
-//                        delta = timeInMinute - currentTimeInMinute + MINUTE_IN_DAY;
-//                        break;
-//                    default:
-//                        delta = timeInMinute - currentTimeInMinute;
-//                }
-//            }
-//        }
-//
-//        if (stateSelectDays.get()){
-//            final int currentTimeInMinuteOfWeek = dateToMin(currentDayOfWeek, currentHour, currentMinute);
-//            List<Integer> selectedDays = getSelectedDays();
-//            selectedDaysToMin(selectedDays, hour, minute);
-//
-//            final int deltaNext = findDeltaWithNext(selectedDays, currentTimeInMinuteOfWeek);
-//            if (deltaNext >= 0) {
-//                delta = deltaNext;
-//            } else {
-//                final int deltaPrevious = findDeltaWithFirst(selectedDays, currentTimeInMinuteOfWeek);
-//                if (deltaPrevious >= 0) {
-//                    delta = deltaPrevious;
-//                } else {
-//                    delta = -1;
-//                }
-//            }
-//        }
 
         final int currentTimeInMinuteOfWeek = dateToMin(currentDayOfWeek, currentHour, currentMinute);
         List<Integer> selectedDays = getSelectedDays();
