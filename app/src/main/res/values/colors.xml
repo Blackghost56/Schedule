@@ -21,4 +21,12 @@
 
     <color name="holo_orange_dark">#ffff8800</color>
     <color name="secondaryTextDark">#777777</color>
+
+    <color name="selectorCreate">#A5D6A7</color>
+    <color name="selectorCreateVariant">#BBD6BC</color>
+    <color name="selectorCancel">#EF9A9A</color>
+    <color name="selectorCancelVariant">#ECBDBD</color>
+
+    <color name="colorControlNormal">#89000000</color>
+
 </resources>

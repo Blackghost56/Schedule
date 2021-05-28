@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:initValueMode="currentTime"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintBottom_toTopOf="@+id/chipGroup2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/timePicker"
             app:selectionRequired="true"
             app:singleLine="false">
 
@@ -181,13 +181,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -224,6 +217,7 @@
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:theme="@style/Theme.Schedule.Switch"
             android:checked="false"
             android:text="@string/schedule_edit_switch_repeat"
             android:textSize="18sp"
@@ -239,9 +233,10 @@
             android:layout_height="wrap_content"
             android:width="140dp"
             android:height="60dp"
-            android:text="@android:string/cancel"
-            android:drawableLeft="@drawable/ic_round_clear_24"
             android:backgroundTint="@color/selector_button_cancel"
+            android:textColor="@color/colorControlNormal"
+            android:drawableLeft="@drawable/ic_round_clear_24"
+            android:text="@android:string/cancel"
             android:textSize="16sp"
             app:cornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -251,14 +246,16 @@
             app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintVertical_bias="0.35000002" />
 
+<!--        android:backgroundTint="@color/selector_button_gray"-->
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="140dp"
             android:height="60dp"
-            android:drawableLeft="@drawable/ic_round_add_24"
             android:backgroundTint="@color/selector_button_create"
+            android:textColor="@color/colorControlNormal"
+            android:drawableLeft="@drawable/ic_round_add_24"
             android:text="@string/schedule_edit_button_create"
             android:textSize="16sp"
             app:cornerRadius="30dp"

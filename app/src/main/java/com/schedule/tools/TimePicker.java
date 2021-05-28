@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class TimePicker extends FrameLayout {
     public static final int INIT_CURRENT_TIME   = 3;
 
     public static final int INIT_VALUE_MAX      = 1440;         // Minute at day
+
 
     // ui components
     private final NumberPicker hourPicker;
@@ -72,6 +74,8 @@ public class TimePicker extends FrameLayout {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.layout_time_picker, this, true);
+
+//        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
         hourPicker = findViewById(R.id.hour);
         hourPicker.setMinValue(0);
@@ -119,8 +123,19 @@ public class TimePicker extends FrameLayout {
         }
     }
 
-
+    // todo vibration need filtration
+//    private final Vibrator vibrator;
+//    private long lastVibrate = 0;
+//    int VIBRATION_LENGTH_MS = 10;
+//    int VIBRATION_TIMEOUT_MS = 200;
     private void onTimeChanged(){
+
+//        Log.d(TAG, "hour: " + hourPicker.getValue() + "   min: " + minutePicker.getValue());
+//        if (System.currentTimeMillis() - lastVibrate > VIBRATION_TIMEOUT_MS) {
+//            lastVibrate = System.currentTimeMillis();
+//            vibrator.vibrate(VIBRATION_LENGTH_MS);
+//        }
+
         if (onTimeChangedListener != null)
             onTimeChangedListener.onTimeChanged(this, hourPicker.getValue(), minutePicker.getValue());
     }
