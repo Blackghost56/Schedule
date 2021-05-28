@@ -13,12 +13,6 @@
         <import type="android.view.View"/>
     </data>
 
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        xmlns:tools="http://schemas.android.com/tools"-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/Layout"
@@ -42,93 +36,80 @@
 
         </com.schedule.tools.TimePicker>
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/chipGroup2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
 
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:orientation="horizontal">-->
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                app:selectionRequired="true"
-                app:singleLine="true"
-                app:singleSelection="true">
+        <!--            <com.google.android.material.chip.ChipGroup-->
+        <!--                android:id="@+id/chipGroup"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:padding="10dp"-->
+        <!--                app:selectionRequired="true"-->
+        <!--                app:singleLine="true"-->
+        <!--                app:singleSelection="true">-->
 
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipOnce"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={viewModel.stateOnce}"
-                    android:onClick="@{() -> viewModel.onModePressed()}"
-                    android:text="@string/schedule_repeat_once"
+        <!--                <com.google.android.material.chip.Chip-->
+        <!--                    android:id="@+id/chipOnce"-->
+        <!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:checked="@={viewModel.stateOnce}"-->
+        <!--                    android:onClick="@{() -> viewModel.onModePressed()}"-->
+        <!--                    android:text="@string/schedule_repeat_once"-->
 
-                    app:chipIcon="@drawable/ic_round_repeat_one_24"
-                    app:chipIconVisible="true" />
+        <!--                    app:chipIcon="@drawable/ic_round_repeat_one_24"-->
+        <!--                    app:chipIconVisible="true" />-->
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipWeekdays"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={viewModel.stateWeekdays}"
-                    android:onClick="@{() -> viewModel.onModePressed()}"
-                    android:text="@string/schedule_repeat_weekdays"
-                    app:chipIcon="@drawable/ic_round_repeat_five_24"
-                    app:chipIconVisible="true" />
+        <!--                <com.google.android.material.chip.Chip-->
+        <!--                    android:id="@+id/chipWeekdays"-->
+        <!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:checked="@={viewModel.stateWeekdays}"-->
+        <!--                    android:onClick="@{() -> viewModel.onModePressed()}"-->
+        <!--                    android:text="@string/schedule_repeat_weekdays"-->
+        <!--                    app:chipIcon="@drawable/ic_round_repeat_five_24"-->
+        <!--                    app:chipIconVisible="true" />-->
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipDaily"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={viewModel.stateDaily}"
-                    android:onClick="@{() -> viewModel.onModePressed()}"
-                    android:text="@string/schedule_repeat_daily"
-                    app:chipIcon="@drawable/ic_round_repeat_24"
-                    app:chipIconVisible="true" />
+        <!--                <com.google.android.material.chip.Chip-->
+        <!--                    android:id="@+id/chipDaily"-->
+        <!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:checked="@={viewModel.stateDaily}"-->
+        <!--                    android:onClick="@{() -> viewModel.onModePressed()}"-->
+        <!--                    android:text="@string/schedule_repeat_daily"-->
+        <!--                    app:chipIcon="@drawable/ic_round_repeat_24"-->
+        <!--                    app:chipIconVisible="true" />-->
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipSelectDays"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@={viewModel.stateSelectDays}"
-                    android:onClick="@{() -> viewModel.onModePressed()}"
-                    android:text="@string/schedule_repeat_select_days"
-                    app:chipIcon="@drawable/ic_round_checklist_rtl_24"
-                    app:chipIconVisible="true" />
+        <!--                <com.google.android.material.chip.Chip-->
+        <!--                    android:id="@+id/chipSelectDays"-->
+        <!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:checked="@={viewModel.stateSelectDays}"-->
+        <!--                    android:onClick="@{() -> viewModel.onModePressed()}"-->
+        <!--                    android:text="@string/schedule_repeat_select_days"-->
+        <!--                    app:chipIcon="@drawable/ic_round_checklist_rtl_24"-->
+        <!--                    app:chipIconVisible="true" />-->
 
-            </com.google.android.material.chip.ChipGroup>
-            <!--            </LinearLayout>-->
-        </HorizontalScrollView>
+        <!--            </com.google.android.material.chip.ChipGroup>-->
 
+
+        <!--        android:visibility="@{viewModel.enableDays ? View.VISIBLE : View.GONE}"-->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:visibility="@{viewModel.enableDays ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:chipSpacingHorizontal="6dp"
+            app:layout_constraintBottom_toTopOf="@+id/switch1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-            app:selectionRequired="true">
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:selectionRequired="true"
+            app:singleLine="false">
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -136,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateMonday}"
                 android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
-                android:text="@string/schedule_repeat_monday" />
+                android:text="@string/schedule_repeat_monday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -144,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateTuesday}"
                 android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
-                android:text="@string/schedule_repeat_tuesday" />
+                android:text="@string/schedule_repeat_tuesday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -152,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateWednesday}"
                 android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
-                android:text="@string/schedule_repeat_wednesday" />
+                android:text="@string/schedule_repeat_wednesday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -160,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateThursday}"
                 android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
-                android:text="@string/schedule_repeat_thursday" />
+                android:text="@string/schedule_repeat_thursday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -168,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateFriday}"
                 android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
-                android:text="@string/schedule_repeat_friday" />
+                android:text="@string/schedule_repeat_friday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -176,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateSaturday}"
                 android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
-                android:text="@string/schedule_repeat_saturday" />
+                android:text="@string/schedule_repeat_saturday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -184,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:checked="@={viewModel.stateSunday}"
                 android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
-                android:text="@string/schedule_repeat_sunday" />
+                android:text="@string/schedule_repeat_sunday_s" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -211,7 +192,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Создание задания "
+            android:text="@string/schedule_edit_title_main"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView3"
@@ -225,7 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Задайте время в которое необходимо осуществлять обработку "
+            android:text="@string/schedule_edit_title_additional"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -237,21 +218,63 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent="0.16" />
 
-        <TextView
-            android:id="@+id/textView4"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Вебирете режим"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            android:checked="false"
+            android:text="@string/schedule_edit_switch_repeat"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="140dp"
+            android:height="60dp"
+            android:text="@android:string/cancel"
+            android:drawableLeft="@drawable/ic_round_clear_24"
+            android:backgroundTint="@color/selector_button_cancel"
+            android:textSize="16sp"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.35000002" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="140dp"
+            android:height="60dp"
+            android:drawableLeft="@drawable/ic_round_add_24"
+            android:backgroundTint="@color/selector_button_create"
+            android:text="@string/schedule_edit_button_create"
+            android:textSize="16sp"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.35000002" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

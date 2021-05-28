@@ -11,10 +11,22 @@
     <string name="schedule_repeat_friday">Friday</string>
     <string name="schedule_repeat_saturday">Saturday</string>
     <string name="schedule_repeat_sunday">Sunday</string>
+    <string name="schedule_repeat_monday_s">Mon</string>
+    <string name="schedule_repeat_tuesday_s">Tue</string>
+    <string name="schedule_repeat_wednesday_s">Wed</string>
+    <string name="schedule_repeat_thursday_s">Thu</string>
+    <string name="schedule_repeat_friday_s">Fri</string>
+    <string name="schedule_repeat_saturday_s">Sat</string>
+    <string name="schedule_repeat_sunday_s">Sun</string>
     <string name="schedule_minute">min</string>
     <string name="schedule_hour">h</string>
     <string name="schedule_in_a">In a</string>
     <string name="schedule_day">d</string>
+    <string name="schedule_edit_title_main">Create a task</string>
+    <string name="schedule_edit_title_additional">Set the days and times at which you want to process</string>
+    <string name="schedule_edit_switch_repeat">Repeat weekly</string>
+    <string name="schedule_edit_button_create">Create</string>
+    <string name="schedule_edit_button_сancel">Cancel</string>
 
 
 </resources>

@@ -11,9 +11,21 @@
     <string name="schedule_repeat_friday">Пятница</string>
     <string name="schedule_repeat_saturday">Суббота</string>
     <string name="schedule_repeat_sunday">Воскресение</string>
+    <string name="schedule_repeat_monday_s">Пн</string>
+    <string name="schedule_repeat_tuesday_s">Вт</string>
+    <string name="schedule_repeat_wednesday_s">Ср</string>
+    <string name="schedule_repeat_thursday_s">Чт</string>
+    <string name="schedule_repeat_friday_s">Пт</string>
+    <string name="schedule_repeat_saturday_s">Сб</string>
+    <string name="schedule_repeat_sunday_s">Вр</string>
     <string name="schedule_hour">ч</string>
     <string name="schedule_minute">мин</string>
     <string name="schedule_in_a">Через</string>
     <string name="schedule_day">д</string>
+    <string name="schedule_edit_title_main">Создание задания</string>
+    <string name="schedule_edit_title_additional">"Задайте дни и время в которое необходимо осуществлять обработку "</string>
+    <string name="schedule_edit_switch_repeat">Повторять еженедельно</string>
+    <string name="schedule_edit_button_create">Создать</string>
+    <string name="schedule_edit_button_сancel">Отмена</string>
 
 </resources>

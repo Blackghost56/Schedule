@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.schedule.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -28,7 +29,7 @@ public class NewTaskViewModel extends AndroidViewModel {
 
     public ObservableBoolean enableDays = new ObservableBoolean(false);
 
-    public ObservableBoolean stateMonday = new ObservableBoolean(true);
+    public ObservableBoolean stateMonday = new ObservableBoolean(false);
     public ObservableBoolean stateTuesday = new ObservableBoolean(false);
     public ObservableBoolean stateWednesday = new ObservableBoolean(false);
     public ObservableBoolean stateThursday = new ObservableBoolean(false);
@@ -44,8 +45,13 @@ public class NewTaskViewModel extends AndroidViewModel {
         super(application);
 
         Calendar calendar = GregorianCalendar.getInstance();
+        final int currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+
+        List<Integer> dayList = new ArrayList<>(List.of(currentDayOfWeek));
+        setSelectedDays(dayList);
+
         updateLeftTime();
     }
 
@@ -198,6 +204,35 @@ public class NewTaskViewModel extends AndroidViewModel {
             list.add(Calendar.SUNDAY);
 
         return list;
+    }
+
+    private void setSelectedDays(List<Integer> list){
+
+        for (int day: list){
+            switch (day){
+                case Calendar.MONDAY:
+                    stateMonday.set(true);
+                    break;
+                case Calendar.TUESDAY:
+                    stateTuesday.set(true);
+                    break;
+                case Calendar.WEDNESDAY:
+                    stateWednesday.set(true);
+                    break;
+                case Calendar.THURSDAY:
+                    stateThursday.set(true);
+                    break;
+                case Calendar.FRIDAY:
+                    stateFriday.set(true);
+                    break;
+                case Calendar.SATURDAY:
+                    stateSaturday.set(true);
+                    break;
+                case Calendar.SUNDAY:
+                    stateSunday.set(true);
+                    break;
+            }
+        }
     }
 
     private int dayToNum(int day){
