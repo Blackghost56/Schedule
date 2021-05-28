@@ -227,24 +227,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:width="140dp"
-            android:height="60dp"
-            android:backgroundTint="@color/selector_button_cancel"
-            android:textColor="@color/colorControlNormal"
-            android:drawableLeft="@drawable/ic_round_clear_24"
-            android:text="@android:string/cancel"
-            android:textSize="16sp"
-            app:cornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:layout_constraintVertical_bias="0.35000002" />
+<!--        <Button-->
+<!--            android:id="@+id/button2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:width="140dp"-->
+<!--            android:height="60dp"-->
+<!--            android:backgroundTint="@color/selector_button_cancel"-->
+<!--            android:textColor="@color/colorControlNormal"-->
+<!--            android:drawableLeft="@drawable/ic_round_clear_24"-->
+<!--            android:text="@android:string/cancel"-->
+<!--            android:textSize="16sp"-->
+<!--            app:cornerRadius="30dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/button"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline3"-->
+<!--            app:layout_constraintVertical_bias="0.35000002" />-->
 
 <!--        android:backgroundTint="@color/selector_button_gray"-->
         <Button
@@ -253,16 +253,16 @@
             android:layout_height="wrap_content"
             android:width="140dp"
             android:height="60dp"
-            android:backgroundTint="@color/selector_button_create"
-            android:textColor="@color/colorControlNormal"
+            android:backgroundTint="@color/selector_button_gray"
             android:drawableLeft="@drawable/ic_round_add_24"
             android:text="@string/schedule_edit_button_create"
+            android:textColor="@color/colorControlNormal"
             android:textSize="16sp"
             app:cornerRadius="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintVertical_bias="0.35000002" />
 
