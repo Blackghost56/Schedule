@@ -32,7 +32,8 @@
 
     <style name="Theme.Schedule.Switch" parent="Theme.Schedule">
         <!-- активное состояние (30% прозрачности для фона) -->
-        <item name="colorControlActivated">@color/selectorCreate</item>
+        <item name="colorControlActivated">@color/colorControlSwitch</item>
+<!--        <item name="colorControlActivated">@color/selectorCreate</item>-->
 <!--        &lt;!&ndash; неактивное состояние ползунка &ndash;&gt;-->
 <!--        <item name="colorSwitchThumbNormal">@color/gray</item>-->
 <!--        &lt;!&ndash; цвет дорожки для неактивного состояния (30% прозрачности) &ndash;&gt;-->

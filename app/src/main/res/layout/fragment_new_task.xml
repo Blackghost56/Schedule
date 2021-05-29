@@ -181,7 +181,6 @@
             android:width="140dp"
             android:height="60dp"
             android:backgroundTint="@color/selector_button_gray"
-
             android:text="@string/schedule_edit_button_create"
             android:textColor="@color/colorControlNormal"
             android:textSize="16sp"
