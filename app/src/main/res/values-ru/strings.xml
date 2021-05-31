@@ -24,7 +24,7 @@
     <string name="schedule_day">д</string>
     <string name="schedule_edit_title_main">Создание задания</string>
     <string name="schedule_edit_title_additional">"Задайте дни и время в которое необходимо осуществлять обработку "</string>
-    <string name="schedule_edit_switch_repeat">Повторять еженедельно</string>
+    <string name="schedule_edit_switch_repeat">"Повторять еженедельно  "</string>
     <string name="schedule_edit_button_create">Создать</string>
     <string name="schedule_edit_button_сancel">Отмена</string>
 

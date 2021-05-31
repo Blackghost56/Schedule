@@ -161,16 +161,17 @@
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/Theme.Schedule.Switch"
-            android:checked="false"
+            android:checked="true"
             android:text="@string/schedule_edit_switch_repeat"
             android:textSize="18sp"
-            app:onCheckedChange="@{(buttonView, isChecked) -> viewModel.onRepeatChanged(isChecked)}"
+            android:theme="@style/Theme.Schedule.Switch"
+            android:thumb="@drawable/switch_thumb_selector"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup2"
+            app:onCheckedChange="@{(buttonView, isChecked) -> viewModel.onRepeatChanged(isChecked)}" />
 
 <!--        android:backgroundTint="@color/selector_button_gray"-->
 <!--        android:drawableLeft="@drawable/ic_round_add_24"-->
