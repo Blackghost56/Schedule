@@ -156,15 +156,16 @@
             app:layout_constraintGuide_percent="0.16" />
 
 <!--        android:thumb="@drawable/switch_thumb"-->
+<!--        android:theme="@style/Theme.Schedule.Switch"-->
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:text="@string/schedule_edit_switch_repeat"
             android:textSize="18sp"
-            android:theme="@style/Theme.Schedule.Switch"
+
             android:thumb="@drawable/switch_thumb_selector"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
@@ -179,13 +180,13 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="140dp"
-            android:height="60dp"
+            android:width="150dp"
+            android:height="70dp"
             android:backgroundTint="@color/selector_button_gray"
             android:text="@string/schedule_edit_button_create"
             android:textColor="@color/colorControlNormal"
-            android:textSize="16sp"
-            app:cornerRadius="30dp"
+            android:textSize="17sp"
+            app:cornerRadius="35dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

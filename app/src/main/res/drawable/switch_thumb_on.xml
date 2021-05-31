@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     >
+
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/colorControlSwitch" />
+            <solid android:color="?attr/colorControlActivated" />
         </shape>
     </item>
 
@@ -15,7 +15,5 @@
         android:right="5dp" android:top="5dp"
         android:drawable="@drawable/ic_round_repeat_24"
         />
-
-
 
 </layer-list>
