@@ -176,17 +176,19 @@
 
 <!--        android:backgroundTint="@color/selector_button_gray"-->
 <!--        android:drawableLeft="@drawable/ic_round_add_24"-->
+<!--        android:textColor="@color/colorControlNormal"-->
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="150dp"
             android:height="70dp"
+            app:cornerRadius="35dp"
             android:backgroundTint="@color/selector_button_gray"
             android:text="@string/schedule_edit_button_create"
-            android:textColor="@color/colorControlNormal"
+            android:textColor="?attr/colorPrimary"
             android:textSize="17sp"
-            app:cornerRadius="35dp"
+            android:onClick="@{() -> viewModel.onCreatePressed()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

@@ -1,7 +1,7 @@
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <resources>
     <string name="schedule_repeat_once">Однократно</string>
-    <string name="schedule_repeat_daily">Ежедневно</string>
+    <string name="schedule_repeat_weekly">Еженедельно</string>
     <string name="schedule_repeat_weekdays">По будням</string>
     <string name="schedule_repeat_select_days">Выбрать дни</string>
     <string name="schedule_repeat_monday">Понедельник</string>

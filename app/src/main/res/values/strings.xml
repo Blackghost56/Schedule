@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Schedule</string>
     <string name="schedule_repeat_once">Once</string>
-    <string name="schedule_repeat_daily">Daily</string>
+    <string name="schedule_repeat_weekly">Weekly</string>
     <string name="schedule_repeat_weekdays">Weekdays</string>
     <string name="schedule_repeat_select_days">Select days</string>
     <string name="schedule_repeat_monday">Monday</string>

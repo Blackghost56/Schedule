@@ -9,16 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.schedule.databinding.FragmentNewTaskBinding;
 import com.schedule.model.NewTaskViewModel;
+import com.schedule.model.ScheduleViewModel;
+
+import java.util.Objects;
 
 public class NewTask extends Fragment {
 
-    private NewTaskViewModel mViewModel;
+    private NewTaskViewModel viewModel;
     private FragmentNewTaskBinding binding;
 
     public static NewTask newInstance() {
@@ -33,12 +37,32 @@ public class NewTask extends Fragment {
         return binding.getRoot();
     }
 
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        viewModel = new ViewModelProvider(this).get(NewTaskViewModel.class);
+//
+//        binding.setViewModel(viewModel);
+//    }
+
+
+    /**
+     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     * has returned, but before any saved state has been restored in to the view.
+     * This gives subclasses a chance to initialize themselves once
+     * they know their view hierarchy has been completely created.  The fragment's
+     * view hierarchy is not however attached to its parent at this point.
+     *
+     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     */
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NewTaskViewModel.class);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        binding.setViewModel(mViewModel);
+        viewModel = new ViewModelProvider(this).get(NewTaskViewModel.class);
+        binding.setViewModel(viewModel);
+
+        viewModel.getActionPopBackStack().observe(getViewLifecycleOwner(), aVoid -> requireActivity().getSupportFragmentManager().popBackStack());
     }
-
 }

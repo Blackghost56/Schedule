@@ -30,5 +30,6 @@
     <color name="colorControlNormal">#89000000</color>
 
     <color name="colorControlSwitch">#C8D9E3</color>
+    <color name="colorControlSwitchVariant">#A9BECA</color>
 
 </resources>

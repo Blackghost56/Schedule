@@ -1,31 +1,38 @@
 package com.schedule.model;
 
 import android.app.Application;
-import android.content.Context;
-import android.os.Vibrator;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
-import com.schedule.R;
+import com.schedule.Task;
+import com.schedule.Task.DayOfWeek;
+import com.schedule.tools.SingleLiveEvent;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
-import java.util.List;
+
+import static com.schedule.Task.DayOfWeek.FRIDAY;
+import static com.schedule.Task.DayOfWeek.MONDAY;
+import static com.schedule.Task.DayOfWeek.SATURDAY;
+import static com.schedule.Task.DayOfWeek.SUNDAY;
+import static com.schedule.Task.DayOfWeek.THURSDAY;
+import static com.schedule.Task.DayOfWeek.TUESDAY;
+import static com.schedule.Task.DayOfWeek.WEDNESDAY;
 
 
 public class NewTaskViewModel extends AndroidViewModel {
 
-    final private String TAG = NewTaskViewModel.class.getSimpleName();
+//    final private String TAG = NewTaskViewModel.class.getSimpleName();
+
+    protected final SingleLiveEvent<Void> actionPopBackStack = new SingleLiveEvent<>();
+    public LiveData<Void> getActionPopBackStack(){
+        return actionPopBackStack;
+    }
 
     public ObservableField<String> leftTimeText = new ObservableField<>("");
-
 
     public ObservableBoolean stateMonday = new ObservableBoolean(false);
     public ObservableBoolean stateTuesday = new ObservableBoolean(false);
@@ -35,206 +42,103 @@ public class NewTaskViewModel extends AndroidViewModel {
     public ObservableBoolean stateSaturday = new ObservableBoolean(false);
     public ObservableBoolean stateSunday = new ObservableBoolean(false);
 
-
-    private int hour;
-    private int minute;
+    private final Task task = new Task();
 
     public NewTaskViewModel(@NonNull Application application) {
         super(application);
 
-        Calendar calendar = GregorianCalendar.getInstance();
-        final int currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-        minute = calendar.get(Calendar.MINUTE);
+        try {
+            Calendar calendar = GregorianCalendar.getInstance();
+            task.timeOfDay.setValueHM(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+            task.daysOfWeek.add(Task.dayOfWeekConvert(calendar.get(Calendar.DAY_OF_WEEK)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        List<Integer> dayList = new ArrayList<>(List.of(currentDayOfWeek));
-        setSelectedDays(dayList);
-
+        updateSelectedDays();
         updateLeftTime();
     }
 
     public void onNumChange(int hour, int minute){
-        this.hour = hour;
-        this.minute = minute;
-        updateLeftTime();
+        try {
+            task.timeOfDay.setValueHM(hour, minute);
+            updateLeftTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
-    public void onRepeatChanged(boolean isChecked) {
-        Log.d(TAG, "onRepeatChanged: " + isChecked);
-    }
-
 
     public void onSelectDaysGroupPressed(){
+        getSelectedDays();
         updateLeftTime();
     }
 
+    public void onRepeatChanged(boolean isChecked) {
+        task.repeat = isChecked;
+    }
 
-    private final int MINUTE_IN_HOUR = 60;
-    private final int HOUR_IN_DAY = 24;
-    private final int MINUTE_IN_DAY = MINUTE_IN_HOUR * HOUR_IN_DAY;
+    public void onCreatePressed(){
+        task.isEnabled = true;
+        actionPopBackStack.call();
+    }
 
 
     private void updateLeftTime(){
-        Calendar calendar = GregorianCalendar.getInstance();
-        final int currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        final int currentMinute =  calendar.get(Calendar.MINUTE);
-
-        int delta = 0;
-
-        final int currentTimeInMinuteOfWeek = dateToMin(currentDayOfWeek, currentHour, currentMinute);
-        List<Integer> selectedDays = getSelectedDays();
-        selectedDaysToMin(selectedDays, hour, minute);
-
-        final int deltaNext = findDeltaWithNext(selectedDays, currentTimeInMinuteOfWeek);
-        if (deltaNext >= 0) {
-            delta = deltaNext;
-        } else {
-            final int deltaPrevious = findDeltaWithFirst(selectedDays, currentTimeInMinuteOfWeek);
-            if (deltaPrevious >= 0) {
-                delta = deltaPrevious;
-            } else {
-                delta = -1;
-            }
-        }
-
-        updateLeftTimeText(delta);
+        leftTimeText.set(task.leftTimeStr(getApplication().getApplicationContext()));
     }
 
-    private int findDeltaWithFirst(List<Integer> list, int reference){
-        if (list.isEmpty() || list == null)
-            return -1;
 
-        int min = Collections.min(list);
-        int MINUTE_IN_WEEK = MINUTE_IN_DAY * 7;
-        if (min < reference)
-            return min + (MINUTE_IN_WEEK - reference);
-
-        return -1;
-    }
-
-    // List must be a sorted
-    private int findDeltaWithNext(List<Integer> list, int reference){
-        for (int value : list){
-            if (value >= reference)
-                return value - reference;
-        }
-
-        return -1;
-    }
-
-    private int dateToMin(int dayOfWeek, int hour, int minute){
-        return dayToNum(dayOfWeek) * MINUTE_IN_DAY + (hour * MINUTE_IN_HOUR + minute);
-    }
-
-    private void selectedDaysToMin(List<Integer> days, int hour, int minute){
-        for (int i = 0; i < days.size(); i++){
-            days.set(i, dateToMin(days.get(i), hour, minute));
-        }
-    }
-
-    private List<Integer> getSelectedDays(){
-        List<Integer> list = new ArrayList<>();
-
-        if (stateMonday.get())
-            list.add(Calendar.MONDAY);
-
-        if (stateTuesday.get())
-            list.add(Calendar.TUESDAY);
-
-        if (stateWednesday.get())
-            list.add(Calendar.WEDNESDAY);
-
-        if (stateThursday.get())
-            list.add(Calendar.THURSDAY);
-
-        if (stateFriday.get())
-            list.add(Calendar.FRIDAY);
-
-        if (stateSaturday.get())
-            list.add(Calendar.SATURDAY);
-
-        if (stateSunday.get())
-            list.add(Calendar.SUNDAY);
-
-        return list;
-    }
-
-    private void setSelectedDays(List<Integer> list){
-
-        for (int day: list){
+    private void updateSelectedDays() {
+        for (DayOfWeek day: task.daysOfWeek){
             switch (day){
-                case Calendar.MONDAY:
+                case MONDAY:
                     stateMonday.set(true);
                     break;
-                case Calendar.TUESDAY:
+                case TUESDAY:
                     stateTuesday.set(true);
                     break;
-                case Calendar.WEDNESDAY:
+                case WEDNESDAY:
                     stateWednesday.set(true);
                     break;
-                case Calendar.THURSDAY:
+                case THURSDAY:
                     stateThursday.set(true);
                     break;
-                case Calendar.FRIDAY:
+                case FRIDAY:
                     stateFriday.set(true);
                     break;
-                case Calendar.SATURDAY:
+                case SATURDAY:
                     stateSaturday.set(true);
                     break;
-                case Calendar.SUNDAY:
+                case SUNDAY:
                     stateSunday.set(true);
                     break;
             }
         }
     }
 
-    private int dayToNum(int day){
-        switch (day) {
-            case Calendar.MONDAY:
-                return 0;
-            case Calendar.TUESDAY:
-                return 1;
-            case Calendar.WEDNESDAY:
-                return 2;
-            case Calendar.THURSDAY:
-                return 3;
-            case Calendar.FRIDAY:
-                return 4;
-            case Calendar.SATURDAY:
-                return 5;
-            case Calendar.SUNDAY:
-                return 6;
-        }
-        return 0;
+    private void getSelectedDays() {
+        task.daysOfWeek.clear();
+
+        if (stateMonday.get())
+            task.daysOfWeek.add(MONDAY);
+
+        if (stateTuesday.get())
+            task.daysOfWeek.add(TUESDAY);
+
+        if (stateWednesday.get())
+            task.daysOfWeek.add(WEDNESDAY);
+
+        if (stateThursday.get())
+            task.daysOfWeek.add(THURSDAY);
+
+        if (stateFriday.get())
+            task.daysOfWeek.add(FRIDAY);
+
+        if (stateSaturday.get())
+            task.daysOfWeek.add(SATURDAY);
+
+        if (stateSunday.get())
+            task.daysOfWeek.add(SUNDAY);
     }
-
-    private void updateLeftTimeText(int minute){
-        if (minute < 0){
-            leftTimeText.set("");
-            return;
-        }
-
-        int min = minute % MINUTE_IN_HOUR;
-        int buf = minute / MINUTE_IN_HOUR;
-
-        int hour = buf % HOUR_IN_DAY;
-        buf /= HOUR_IN_DAY;
-
-        int day = buf;
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append(getApplication().getString(R.string.schedule_in_a)).append(" ");
-        if (day != 0)
-            stringBuilder.append(day).append(" ").append(getApplication().getString(R.string.schedule_day)).append(" ");
-        stringBuilder.append(hour).append(" ").append(getApplication().getString(R.string.schedule_hour)).append(" ");
-        stringBuilder.append(min).append(" ").append(getApplication().getString(R.string.schedule_minute));
-
-        leftTimeText.set(stringBuilder.toString());
-    }
-
-
 
 }

@@ -106,7 +106,7 @@ public class TimePicker extends FrameLayout {
 
         switch (initMode){
             case INIT_VALUE:
-                if (initValue < INIT_VALUE_MAX || initValue > 0){
+                if (initValue < INIT_VALUE_MAX && initValue > 0){
                     int min = initValue % 60;
                     int hour = initValue / 60;
                     hourPicker.setValue(hour);
