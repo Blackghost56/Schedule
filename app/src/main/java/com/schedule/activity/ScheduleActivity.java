@@ -1,18 +1,17 @@
-package com.schedule;
+package com.schedule.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
 
+import com.schedule.R;
+import com.schedule.fragment.MainFragment;
 import com.schedule.model.ScheduleViewModel;
 
-public class Schedule extends AppCompatActivity {
+public class ScheduleActivity extends AppCompatActivity {
 
-    private final String TAG = Schedule.class.getSimpleName();
+    private final String TAG = ScheduleActivity.class.getSimpleName();
 
     private ScheduleViewModel viewModel;
 

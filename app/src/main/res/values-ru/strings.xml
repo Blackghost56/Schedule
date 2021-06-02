@@ -27,5 +27,7 @@
     <string name="schedule_edit_switch_repeat">"Повторять еженедельно  "</string>
     <string name="schedule_edit_button_create">Создать</string>
     <string name="schedule_edit_button_сancel">Отмена</string>
+    <string name="schedule_edit_ready">Готово</string>
+    <string name="schedule_edit_settings">Настройки</string>
 
 </resources>

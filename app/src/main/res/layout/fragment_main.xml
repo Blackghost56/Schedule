@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".MainFragment">
+        tools:context=".fragment.MainFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemList"
@@ -32,17 +32,16 @@
             android:backgroundTint="@color/gray"
             android:contentDescription="@string/schedule_edit_button_create"
             android:onClick="@{()-> viewModel.onFABPressed()}"
+            app:fabCustomSize="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline6"
             app:layout_constraintVertical_bias="0.35"
+            app:maxImageSize="36dp"
             app:rippleColor="?attr/colorSecondaryVariant"
             app:srcCompat="@drawable/ic_round_add_24"
-            app:tint="?attr/colorPrimary"
-            app:fabCustomSize="64dp"
-            app:maxImageSize="36dp"
-            />
+            app:tint="?attr/colorPrimary" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"

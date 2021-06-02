@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".NewTask">
+        tools:context=".fragment.NewTaskFragment">
 
 
         <com.schedule.tools.TimePicker
@@ -32,7 +32,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:onTimeChanged="@{(view, hour, minute) -> viewModel.onNumChange(hour, minute)}">
+            app:onTimeChanged="@{(view, hour, minute) -> viewModel.onNumChange(hour, minute)}"
+            >
 
         </com.schedule.tools.TimePicker>
 
@@ -194,7 +195,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:layout_constraintVertical_bias="0.35000002" />
+            app:layout_constraintVertical_bias="0.35" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"

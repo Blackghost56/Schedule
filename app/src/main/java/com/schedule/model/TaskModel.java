@@ -44,4 +44,27 @@ public class TaskModel extends ItemModel<Task> {
         item.isEnabled = isChecked;
         updateAdditionalText();
     }
+
+    public void onNumChange(int hour, int minute){
+        try {
+            item.timeOfDay.setValueHM(hour, minute);
+            time.set(item.timeToStr(context));
+            updateAdditionalText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onSelectDaysGroupPressed(){
+        updateAdditionalText();
+    }
+
+
+    public ObservableBoolean stateMonday = new ObservableBoolean(false);
+    public ObservableBoolean stateTuesday = new ObservableBoolean(false);
+    public ObservableBoolean stateWednesday = new ObservableBoolean(false);
+    public ObservableBoolean stateThursday = new ObservableBoolean(false);
+    public ObservableBoolean stateFriday = new ObservableBoolean(false);
+    public ObservableBoolean stateSaturday = new ObservableBoolean(false);
+    public ObservableBoolean stateSunday = new ObservableBoolean(false);
 }

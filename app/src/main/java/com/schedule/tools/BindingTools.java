@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.databinding.BindingAdapter;
 
 import com.google.android.material.chip.ChipGroup;
+import com.schedule.Task;
 
 public class BindingTools {
 
@@ -16,6 +17,11 @@ public class BindingTools {
         timePicker.setOnTimeChangedListener(listener);
     }
 
+    @BindingAdapter("initValue")
+    public static void setInitValue(TimePicker timePicker, Task.TimeOfDay timeOfDay) {
+        timePicker.setHour(timeOfDay.getHour());
+        timePicker.setMinute(timeOfDay.getMinute());
+    }
 
     @BindingAdapter("onCheckedChange")
     public static void setOnCheckedChange(SwitchCompat switchCompat, CompoundButton.OnCheckedChangeListener listener) {

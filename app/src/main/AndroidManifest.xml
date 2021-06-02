@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Schedule" >
-        <activity android:name=".Schedule">
+        <activity android:name=".activity.ScheduleActivity">
 <!--            android:screenOrientation="portrait"-->
 <!--            >-->
             <intent-filter>

@@ -1,10 +1,10 @@
 package com.schedule.adapter;
 
 import android.content.Context;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -13,14 +13,11 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.schedule.R;
-import com.schedule.Schedule;
 import com.schedule.Task;
 import com.schedule.databinding.ItemScheduleBinding;
 import com.schedule.model.TaskModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -73,29 +70,57 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setSelected(int position) {
-//        if (selectedPosition != UNCHECKED && !itemsList.isEmpty()) {
-//            TM itemModelOld = itemsList.get(selectedPosition);
-//            if (itemModelOld != null)
-//                itemModelOld.setSelected(false);
-//        }
-//
-//        T item = null;
-//        if (position != UNCHECKED){
-//            TM itemModel = itemsList.get(position);
-//            if (itemModel != null) {
-//                itemModel.setSelected(true);
-//                item = itemModel.getItem();
-//            }
-//        }
-//
-//        selectedPosition = position;
-//        notifyDataSetChanged();
-//        checkedCallback(item);
+        if (selectedPosition != UNCHECKED && !itemsList.isEmpty()) {
+            TaskModel itemModelOld = itemsList.get(selectedPosition);
+            if (itemModelOld != null)
+                itemModelOld.setSelected(false);
+        }
+
+        Task item = null;
+        if (position != UNCHECKED){
+            TaskModel itemModel = itemsList.get(position);
+            if (itemModel != null) {
+                itemModel.setSelected(true);
+                item = itemModel.getItem();
+            }
+        }
+
+        selectedPosition = position;
+        notifyDataSetChanged();
+        onClickCallback(item);
     }
 
+    public interface Callback<T> {
+        void onClick(T item);
+        void onLongClick(T item);
+    }
 
+    private Callback<Task> callback;
+    public void registerCallback(Callback<Task> callback){
+        this.callback = callback;
+    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    protected void onClickCallback(Task item){
+        if (callback != null)
+            callback.onClick(item);
+    }
+
+    protected void onLongClickCallback(Task item){
+        if (callback != null)
+            callback.onLongClick(item);
+    }
+
+    private RecyclerView recyclerView = null;
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        this.recyclerView = recyclerView;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private final String TAG = ViewHolder.class.getSimpleName();
+
         public ItemScheduleBinding binding;
 
         public ViewHolder(ItemScheduleBinding binding) {
@@ -107,6 +132,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.setViewModel(model);
             binding.executePendingBindings();
 
+
 //            itemView.setOnClickListener(v -> {
 //                if (checkedId != model.getId()) {
 //                    setSelected(model.getId());
@@ -115,6 +141,35 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                }
 //            });
 
+            itemView.setOnClickListener(v -> {
+//                Task task = binding.getViewModel().getItem();
+//                onClickCallback(task);
+
+                if (selectedPosition != getAdapterPosition()) {
+                    setSelected(getAdapterPosition());
+                } else {
+                    setSelected(UNCHECKED);
+                }
+
+                TransitionManager.beginDelayedTransition(recyclerView);
+
+                Log.d(TAG, "setOnClickListener");
+            });
+
+            itemView.setOnLongClickListener(v -> {
+                Log.d(TAG, "setOnLongClickListener");
+
+//                Task task = binding.getViewModel().getItem();
+//                onLongClickCallback(task);
+
+//                if (selectedPosition != getAdapterPosition()) {
+//                    setSelected(getAdapterPosition());
+//                } else {
+//                    setSelected(UNCHECKED);
+//                }
+
+                return true;
+            });
         }
 
     }

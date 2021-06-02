@@ -1,4 +1,4 @@
-package com.schedule;
+package com.schedule.fragment;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,24 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.schedule.R;
 import com.schedule.databinding.FragmentNewTaskBinding;
 import com.schedule.model.NewTaskViewModel;
-import com.schedule.model.ScheduleViewModel;
 
-import java.util.Objects;
-
-public class NewTask extends Fragment {
+public class NewTaskFragment extends Fragment {
 
     private NewTaskViewModel viewModel;
     private FragmentNewTaskBinding binding;
 
-    public static NewTask newInstance() {
-        return new NewTask();
+    public static NewTaskFragment newInstance() {
+        return new NewTaskFragment();
     }
 
     @Override

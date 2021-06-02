@@ -8,7 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.schedule.NewTask;
+import com.schedule.fragment.NewTaskFragment;
 import com.schedule.Task;
 import com.schedule.tools.SingleLiveEvent;
 
@@ -57,7 +57,7 @@ public class ScheduleViewModel extends AndroidViewModel {
     }
 
     public void onFABPressed(){
-        actionOpenFragment.setValue(NewTask.newInstance());
+        actionOpenFragment.setValue(NewTaskFragment.newInstance());
     }
 
 }
