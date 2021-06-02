@@ -39,6 +39,14 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
             list.add(task);
+
+            task = new Task();
+            task.isEnabled = false;
+            task.timeOfDay.setValue(542);
+            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+            task.repeat = false;
+            list.add(task);
         } catch (Exception e) {
             e.printStackTrace();
         }

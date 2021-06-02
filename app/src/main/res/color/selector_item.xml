@@ -5,7 +5,7 @@
     <!--    &lt;!&ndash;When Button is in pressed state &ndash;&gt;-->
     <!--    <item android:state_pressed="true" android:color="#42c560" />-->
     <!--    &lt;!&ndash;When Button is in selected state &ndash;&gt;-->
-    <item android:state_pressed="true" android:color="@color/gray" />
+    <item android:state_pressed="true" android:color="@color/light_gray" />
 
 <!--    <item android:state_selected="true" android:color="@color/light_gray" />-->
     <!--Default Background Color -->

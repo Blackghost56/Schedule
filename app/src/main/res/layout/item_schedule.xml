@@ -24,8 +24,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
 
-        
+        android:backgroundTint="@color/selector_item"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:paddingTop="7dp"
+            android:paddingTop="16dp"
             android:paddingBottom="0dp">
 
 
@@ -121,10 +123,11 @@
                 android:id="@+id/chipGroup2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:duplicateParentState="false"
+
                 android:padding="10dp"
                 android:visibility="@{viewModel.isSelected ? View.VISIBLE : View.GONE}"
                 app:chipSpacingHorizontal="6dp"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,6 +140,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@={viewModel.stateMonday}"
+                    android:duplicateParentState="false"
+                    android:focusableInTouchMode="false"
                     android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                     android:text="@string/schedule_repeat_monday_s" />
 
@@ -145,6 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@={viewModel.stateTuesday}"
+                    android:duplicateParentState="false"
                     android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                     android:text="@string/schedule_repeat_tuesday_s" />
 
@@ -153,6 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@={viewModel.stateWednesday}"
+                    android:duplicateParentState="false"
                     android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                     android:text="@string/schedule_repeat_wednesday_s" />
 
@@ -161,6 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@={viewModel.stateThursday}"
+                    android:duplicateParentState="false"
                     android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                     android:text="@string/schedule_repeat_thursday_s" />
 
@@ -169,6 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@={viewModel.stateFriday}"
+                    android:duplicateParentState="false"
                     android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                     android:text="@string/schedule_repeat_friday_s" />
 
@@ -177,6 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@={viewModel.stateSaturday}"
+                    android:duplicateParentState="false"
                     android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                     android:text="@string/schedule_repeat_saturday_s" />
 
@@ -185,6 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="@={viewModel.stateSunday}"
+                    android:duplicateParentState="false"
                     android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
                     android:text="@string/schedule_repeat_sunday_s" />
 
