@@ -69,6 +69,10 @@ public class TaskModel extends ItemModel<Task> {
         updateAdditionalText();
     }
 
+    public void onRepeatChanged(boolean isChecked) {
+        item.repeat = isChecked;
+        updateAdditionalText();
+    }
 
     public ObservableBoolean stateMonday = new ObservableBoolean(false);
     public ObservableBoolean stateTuesday = new ObservableBoolean(false);

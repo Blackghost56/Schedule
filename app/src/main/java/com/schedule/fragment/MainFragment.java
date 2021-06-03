@@ -29,6 +29,9 @@ public class MainFragment extends Fragment {
 
     private final String TAG = MainFragment.class.getSimpleName();
 
+    //todo
+//    protected final String SELECTED_ID = "selected_id";
+
     private ScheduleViewModel viewModel;
     private FragmentMainBinding binding;
     private RecyclerView recyclerView;

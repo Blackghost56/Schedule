@@ -128,7 +128,7 @@
                 android:padding="10dp"
                 android:visibility="@{viewModel.isSelected ? View.VISIBLE : View.GONE}"
                 app:chipSpacingHorizontal="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/switch1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/timePicker2"
@@ -200,6 +200,23 @@
                     android:text="@string/schedule_repeat_sunday_s" />
 
             </com.google.android.material.chip.ChipGroup>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch1"
+                android:visibility="@{viewModel.isSelected ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{viewModel.item.repeat}"
+                android:text="@string/schedule_edit_switch_repeat"
+                android:textSize="18sp"
+
+                android:thumb="@drawable/switch_thumb_selector"
+                app:layout_constraintBottom_toTopOf="@+id/guideline3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup2"
+                app:onCheckedChange="@{(buttonView, isChecked) -> viewModel.onRepeatChanged(isChecked)}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

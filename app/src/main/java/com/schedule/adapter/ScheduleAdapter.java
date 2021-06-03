@@ -90,25 +90,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         onClickCallback(item);
     }
 
-    public interface Callback<T> {
-        void onClick(T item);
-        void onLongClick(T item);
-    }
-
-    private Callback<Task> callback;
-    public void registerCallback(Callback<Task> callback){
-        this.callback = callback;
-    }
-
-    protected void onClickCallback(Task item){
-        if (callback != null)
-            callback.onClick(item);
-    }
-
-    protected void onLongClickCallback(Task item){
-        if (callback != null)
-            callback.onLongClick(item);
-    }
 
     private RecyclerView recyclerView = null;
     @Override
@@ -172,5 +153,29 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
         }
 
+
+
     }
+
+
+    public interface Callback<T> {
+        void onClick(T item);
+        void onLongClick(T item);
+    }
+
+    private Callback<Task> callback;
+    public void registerCallback(Callback<Task> callback){
+        this.callback = callback;
+    }
+
+    protected void onClickCallback(Task item){
+        if (callback != null)
+            callback.onClick(item);
+    }
+
+    protected void onLongClickCallback(Task item){
+        if (callback != null)
+            callback.onLongClick(item);
+    }
+
 }
