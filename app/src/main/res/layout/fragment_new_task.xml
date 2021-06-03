@@ -46,7 +46,7 @@
             android:padding="10dp"
 
             app:chipSpacingHorizontal="6dp"
-            app:layout_constraintBottom_toTopOf="@+id/switch1"
+            app:layout_constraintBottom_toTopOf="@+id/switchRepeat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +160,7 @@
 <!--        android:theme="@style/Theme.Schedule.Switch"-->
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch1"
+            android:id="@+id/switchRepeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
@@ -45,7 +47,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     this.itemsList.add(itemModel);
                 }
 
-                setSelected(defaultPosition);
+                //setSelected(defaultPosition);
             }
             notifyDataSetChanged();
         });
@@ -70,17 +72,19 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setSelected(int position) {
+        // turn off the last selection
         if (selectedPosition != UNCHECKED && !itemsList.isEmpty()) {
             TaskModel itemModelOld = itemsList.get(selectedPosition);
             if (itemModelOld != null)
-                itemModelOld.setSelected(false);
+                itemModelOld.setExpanded(false);
         }
 
+        // turn on the new selection
         Task item = null;
         if (position != UNCHECKED){
             TaskModel itemModel = itemsList.get(position);
             if (itemModel != null) {
-                itemModel.setSelected(true);
+                itemModel.setExpanded(true);
                 item = itemModel.getItem();
             }
         }
@@ -113,35 +117,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.setViewModel(model);
             binding.executePendingBindings();
 
-
-//            itemView.setOnClickListener(v -> {
-//                if (checkedId != model.getId()) {
-//                    setSelected(model.getId());
-//                } else {
-//                    setSelected(UNCHECKED);
-//                }
-//            });
+//            SwitchCompat switchCompat = itemView.findViewById(R.id.switchEnable);
+//            switchCompat.setThumbDrawable();
+//            switchCompat.setTrackDrawable();
 
             itemView.setOnClickListener(v -> {
+                Log.d(TAG, "setOnClickListener");
 //                Task task = binding.getViewModel().getItem();
 //                onClickCallback(task);
-
-                if (selectedPosition != getAdapterPosition()) {
-                    setSelected(getAdapterPosition());
-                } else {
-                    setSelected(UNCHECKED);
-                }
-
-                TransitionManager.beginDelayedTransition(recyclerView);
-
-                Log.d(TAG, "setOnClickListener");
-            });
-
-            itemView.setOnLongClickListener(v -> {
-                Log.d(TAG, "setOnLongClickListener");
-
-//                Task task = binding.getViewModel().getItem();
-//                onLongClickCallback(task);
 
 //                if (selectedPosition != getAdapterPosition()) {
 //                    setSelected(getAdapterPosition());
@@ -149,12 +132,78 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                    setSelected(UNCHECKED);
 //                }
 
+                switch (mode){
+                    case SINGLE_SELECT:
+                        if (selectedPosition != getAdapterPosition()) {
+                            setSelected(getAdapterPosition());
+                        } else {
+                            setSelected(UNCHECKED);
+                        }
+                        TransitionManager.beginDelayedTransition(recyclerView);
+                        break;
+                    case MULTI_SELECT:
+                        model.setSelected(!model.isSelected());
+                        notifyDataSetChanged();
+                        break;
+                }
+                //notifyItemChanged(getAdapterPosition());
+            });
+
+            itemView.setOnLongClickListener(v -> {
+                Log.d(TAG, "setOnLongClickListener");
+
+
+                toggleMode();
+
+                switch (mode){
+                    case SINGLE_SELECT:
+                        // Unselect all item
+                        for (TaskModel taskModel: itemsList){
+                            taskModel.setSelected(false);
+                        }
+//                        model.setSelected(false);
+                        break;
+                    case MULTI_SELECT:
+                        // Collapse all item
+                        for (TaskModel taskModel: itemsList){
+                            taskModel.setExpanded(false);
+
+
+                        }
+                        TransitionManager.beginDelayedTransition(recyclerView);
+                        model.setSelected(true);
+//                        model.setSelected(!model.isSelected());
+                        break;
+                }
+                //model.setSelected(!model.isSelected());
+//                if (model.isSelected()){
+//                    model.setExpanded(false);
+//                }
+
+                notifyDataSetChanged();
+                //notifyItemChanged(getAdapterPosition());
+
                 return true;
             });
         }
 
+    }
+
+    private enum Mode {SINGLE_SELECT, MULTI_SELECT}
+    private Mode mode = Mode.SINGLE_SELECT;
+    private void toggleMode(){
+        switch (mode){
+            case SINGLE_SELECT:
+                mode = Mode.MULTI_SELECT;
 
 
+                break;
+            case MULTI_SELECT:
+                mode = Mode.SINGLE_SELECT;
+
+
+                break;
+        }
     }
 
 

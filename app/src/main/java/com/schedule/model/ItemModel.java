@@ -5,6 +5,7 @@ import androidx.databinding.ObservableBoolean;
 public class ItemModel<T> {
 
     public ObservableBoolean isSelected = new ObservableBoolean(false);
+    public ObservableBoolean isExpanded = new ObservableBoolean(false);
     protected final T item;
     protected long id;
 
@@ -23,5 +24,11 @@ public class ItemModel<T> {
     }
     public boolean isSelected() {
         return isSelected.get();
+    }
+    public void setExpanded(boolean expanded) {
+        isExpanded.set(expanded);
+    }
+    public boolean isExpanded() {
+        return isExpanded.get();
     }
 }

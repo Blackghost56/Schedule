@@ -4,7 +4,9 @@ import android.content.Context;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
+import com.schedule.R;
 import com.schedule.Task;
 
 import static com.schedule.Task.DayOfWeek.FRIDAY;
@@ -23,7 +25,9 @@ public class TaskModel extends ItemModel<Task> {
     public ObservableBoolean isRepeat = new ObservableBoolean(false);
     public ObservableField<String> additionalText = new ObservableField<>("");
 
-    private Context context;
+    public ObservableInt timeColor = new ObservableInt(R.color.secondaryTextDark);
+
+    private final Context context;
 
     public TaskModel(Context context, Task item) {
         super(item);
@@ -35,6 +39,15 @@ public class TaskModel extends ItemModel<Task> {
         isRepeat.set(item.repeat);
         updateSelectedDays();
         updateAdditionalText();
+        updateTimeColor();
+    }
+
+    private void updateTimeColor(){
+        if (item.isEnabled){
+            timeColor.set(R.color.black);
+        } else {
+            timeColor.set(R.color.secondaryTextDark);
+        }
     }
 
     private void updateAdditionalText(){
@@ -52,6 +65,7 @@ public class TaskModel extends ItemModel<Task> {
 
         item.isEnabled = isChecked;
         updateAdditionalText();
+        updateTimeColor();
     }
 
     public void onNumChange(int hour, int minute){
