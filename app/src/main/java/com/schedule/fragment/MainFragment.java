@@ -14,10 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.schedule.R;
 import com.schedule.Task;
 import com.schedule.adapter.ScheduleAdapter;
@@ -91,22 +97,36 @@ public class MainFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         adapter = new ScheduleAdapter(requireContext(), viewModel.getItemList(), -1);
-//        adapter.registerCallback(new ScheduleAdapter.Callback<Task>() {
-//            @Override
-//            public void onClick(Task item) {
-//                AreYouSureDialog dialogFragment = new AreYouSureDialog("Test", () -> {});
-//
-//                dialogFragment.show(getChildFragmentManager(), "");
-//            }
-//
-//            @Override
-//            public void onLongClick(Task item) {
-//
-//            }
-//        });
+        adapter.registerCallback(new ScheduleAdapter.Callback<Task>() {
+            @Override
+            public void onClick(Task item) {
 
-//        adapter.registerCallback(new ReportsAdapter.Callback<Report>() {
-//        });
+            }
+
+            @Override
+            public void onLongClick(Task item) {
+
+            }
+
+            @Override
+            public void modeChanged(ScheduleAdapter.Mode mode) {
+                FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.floatingActionButton);
+                FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+                Transition transition = new Slide(Gravity.BOTTOM);
+                TransitionManager.beginDelayedTransition((ViewGroup) floatingActionButton.getParent(), transition);
+
+                switch (mode){
+                    case SINGLE_SELECT:
+                        floatingActionButton.setVisibility(View.GONE);
+                        fab.setVisibility(View.VISIBLE);
+                        break;
+                    case MULTI_SELECT:
+                        fab.setVisibility(View.GONE);
+                        floatingActionButton.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        });
 
         recyclerView.setAdapter(adapter);
 
@@ -114,6 +134,7 @@ public class MainFragment extends Fragment {
         viewModel.getActionOpenFragment().observe(getViewLifecycleOwner(), fragment -> {
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
 //            requireActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.container, fragment).addToBackStack(null).commit();
+
         });
 
 //        FloatingActionButton fab = getActivity().findViewById(R.id.fab);

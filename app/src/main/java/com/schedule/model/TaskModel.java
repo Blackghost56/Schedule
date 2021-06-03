@@ -26,8 +26,8 @@ public class TaskModel extends ItemModel<Task> {
     public ObservableField<String> additionalText = new ObservableField<>("");
 
     public ObservableInt timeColor = new ObservableInt(R.color.secondaryTextDark);
-    public ObservableInt enableSwitchThumbDrawable = new ObservableInt(R.drawable.switch_repeat_thumb_selector);
-    public ObservableInt switchTrackDrawable = new ObservableInt(R.drawable.switch_track_selector);
+//    public ObservableInt enableSwitchThumbDrawable = new ObservableInt(R.drawable.switch_repeat_thumb_selector);
+//    public ObservableInt switchTrackDrawable = new ObservableInt(R.drawable.switch_track_selector);
 
     private final Context context;
 

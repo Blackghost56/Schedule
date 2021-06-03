@@ -1,18 +1,21 @@
 package com.schedule.adapter;
 
 import android.content.Context;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.schedule.R;
 import com.schedule.Task;
@@ -154,23 +157,24 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
                 toggleMode();
-
+                TransitionManager.beginDelayedTransition(recyclerView);
                 switch (mode){
                     case SINGLE_SELECT:
                         // Unselect all item
                         for (TaskModel taskModel: itemsList){
                             taskModel.setSelected(false);
+                            taskModel.setModeMultiSelect(false);
                         }
+//                        TransitionManager.beginDelayedTransition(recyclerView);
 //                        model.setSelected(false);
                         break;
                     case MULTI_SELECT:
                         // Collapse all item
                         for (TaskModel taskModel: itemsList){
                             taskModel.setExpanded(false);
-
-
+                            taskModel.setModeMultiSelect(true);
                         }
-                        TransitionManager.beginDelayedTransition(recyclerView);
+//                        TransitionManager.beginDelayedTransition(recyclerView);
                         model.setSelected(true);
 //                        model.setSelected(!model.isSelected());
                         break;
@@ -181,15 +185,15 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //                }
 
                 notifyDataSetChanged();
+                onModeChangedCallback(mode);
                 //notifyItemChanged(getAdapterPosition());
-
                 return true;
             });
         }
 
     }
 
-    private enum Mode {SINGLE_SELECT, MULTI_SELECT}
+    public enum Mode {SINGLE_SELECT, MULTI_SELECT}
     private Mode mode = Mode.SINGLE_SELECT;
     private void toggleMode(){
         switch (mode){
@@ -204,12 +208,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 break;
         }
+//        onModeChangedCallback(mode);
     }
 
 
     public interface Callback<T> {
         void onClick(T item);
         void onLongClick(T item);
+        void modeChanged(Mode mode);
     }
 
     private Callback<Task> callback;
@@ -225,6 +231,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     protected void onLongClickCallback(Task item){
         if (callback != null)
             callback.onLongClick(item);
+    }
+
+    protected void onModeChangedCallback(Mode mode){
+        if (callback != null)
+            callback.modeChanged(mode);
     }
 
 }

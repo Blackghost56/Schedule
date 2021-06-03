@@ -26,8 +26,8 @@
 <!--                android:width="25dp" -->
 <!--                />-->
 
-            <solid android:color="@color/white" />
-<!--            <solid android:color="?attr/colorControlActivated" />-->
+<!--            <solid android:color="@color/white" />-->
+            <solid android:color="?attr/colorOnPrimary" />
         </shape>
     </item>
 
