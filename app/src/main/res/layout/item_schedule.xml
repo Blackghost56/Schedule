@@ -43,6 +43,16 @@
             android:paddingBottom="8dp">
 
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                android:visibility="@{viewModel.isExpanded ? View.VISIBLE : View.GONE}"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
@@ -69,13 +79,16 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
 
+
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchEnable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="@{viewModel.isEnable}"
-                android:scaleX="1.3"
-                android:scaleY="1.3"
+                android:visibility="@{viewModel.isSelected ? View.GONE : View.VISIBLE}"
+
+                android:thumb="@drawable/switch_thumb_selector"
+                app:track="@drawable/switch_track_selector"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewAdditional"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -211,7 +224,8 @@
                 android:checked="@{viewModel.item.repeat}"
                 android:text="@string/schedule_edit_switch_repeat"
                 android:textSize="18sp"
-                android:thumb="@drawable/switch_thumb_selector"
+                app:track="@drawable/switch_track_selector"
+                android:thumb="@drawable/switch_repeat_thumb_selector"
 
                 android:visibility="@{viewModel.isExpanded ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -220,6 +234,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chipGroup2"
                 app:onCheckedChange="@{(buttonView, isChecked) -> viewModel.onRepeatChanged(isChecked)}" />
+
+<!--            <CheckBox-->
+<!--                android:id="@+id/radioButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:visibility="@{viewModel.isSelected ? View.VISIBLE : View.GONE}"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/textViewAdditional"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+<!--                app:layout_constraintHorizontal_bias="1.0"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/guideline5"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.2"-->
+<!--                 />-->
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -167,7 +167,8 @@
             android:text="@string/schedule_edit_switch_repeat"
             android:textSize="18sp"
 
-            android:thumb="@drawable/switch_thumb_selector"
+            app:track="@drawable/switch_track_selector"
+            android:thumb="@drawable/switch_repeat_thumb_selector"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -187,7 +188,7 @@
             app:cornerRadius="35dp"
             android:backgroundTint="@color/selector_button_gray"
             android:text="@string/schedule_edit_button_create"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="?attr/colorControlNormal"
             android:textSize="17sp"
             android:onClick="@{() -> viewModel.onCreatePressed()}"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -25,6 +25,8 @@
 
             app:layout_constraintTop_toTopOf="parent" />
 
+<!--        app:fabCustomSize="64dp"-->
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
@@ -32,7 +34,6 @@
             android:backgroundTint="@color/gray"
             android:contentDescription="@string/schedule_edit_button_create"
             android:onClick="@{()-> viewModel.onFABPressed()}"
-            app:fabCustomSize="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +42,7 @@
             app:maxImageSize="36dp"
             app:rippleColor="?attr/colorSecondaryVariant"
             app:srcCompat="@drawable/ic_round_add_24"
-            app:tint="?attr/colorPrimary" />
+            app:tint="?attr/colorControlNormal" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"

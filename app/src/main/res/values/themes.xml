@@ -20,6 +20,8 @@
         <item name="colorControlActivated">@color/colorControlSwitch</item>
         <item name="thumbColor">@color/gray</item>
 
+        <item name="trackColor">@color/gray</item>
+
 <!--        <item name="colorAccent">@color/colorControlSwitch</item>-->
 <!--        <item name="windowActionBar">false</item>-->
 <!--        <item name="windowNoTitle">true</item>-->
