@@ -2,11 +2,8 @@ package com.schedule.adapter;
 
 import android.content.Context;
 import android.transition.Fade;
-import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -24,6 +21,7 @@ import com.schedule.model.TaskModelForList;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -39,8 +37,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static int UNCHECKED = -1;
     protected int selectedPosition = UNCHECKED;
 
-    protected Set<Integer> selectedItemsSet = new HashSet<>();
-
+//    protected List<Integer> selectedItems = new ArrayList<>();
+//    protected Set<Integer> selectedItems = new HashSet<>();
 
 
     public ScheduleAdapter(Context context, LiveData<List<Task>> itemsList, int defaultPosition){
@@ -112,6 +110,18 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.recyclerView = recyclerView;
     }
 
+    public void removeSelectedItems(){
+        if (mode == Mode.MULTI_SELECT) {
+            for (Iterator<TaskModelForList> it = itemsList.iterator(); it.hasNext(); ) {
+                TaskModelForList model = it.next();
+                if (model.isSelected())
+                    it.remove();
+            }
+            notifyDataSetChanged();
+            toggleMode();
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final String TAG = ViewHolder.class.getSimpleName();
 
@@ -136,8 +146,18 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
                         break;
                     case MULTI_SELECT:
+//                        if (model.isSelected()){
+//                            model.setSelected(false);
+////                            for (Iterator<Integer> it = selectedItems.iterator(); it.hasNext();)
+////                                if (it.next() == getAdapterPosition())
+////                                    it.remove();
+//                        } else {
+//                            model.setSelected(true);
+////                            selectedItems.add(getAdapterPosition());
+//                        }
+
                         model.setSelected(!model.isSelected());
-                        selectedItemsSet.add(getAdapterPosition());
+//                        selectedItems.add(getAdapterPosition());
                         notifyItemChanged(getAdapterPosition());
                         break;
                 }
@@ -169,7 +189,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
 
                 selectedPosition = UNCHECKED;
-                selectedItemsSet.clear();
+//                selectedItems.clear();
 
                 break;
             case MULTI_SELECT:
@@ -180,7 +200,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     taskModel.setSelected(false);
                     taskModel.setModeMultiSelect(false);
                 }
-                selectedItemsSet.clear();
+//                selectedItems.clear();
 
                 break;
         }

@@ -123,6 +123,11 @@ public class ScheduleViewModel extends AndroidViewModel {
         return actionOpenFragment;
     }
 
+    private final SingleLiveEvent<Void> actionDelete = new SingleLiveEvent<>();
+    public LiveData<Void> getActionDelete(){
+        return actionDelete;
+    }
+
     protected final SingleLiveEvent<Void> actionPopBackStack = new SingleLiveEvent<>();
     public LiveData<Void> getActionPopBackStack(){
         return actionPopBackStack;
@@ -143,7 +148,7 @@ public class ScheduleViewModel extends AndroidViewModel {
     }
 
     public void onFABDeletePressed(){
-
+        actionDelete.call();
     }
 
 

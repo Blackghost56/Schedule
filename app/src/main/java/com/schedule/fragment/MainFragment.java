@@ -105,5 +105,7 @@ public class MainFragment extends Fragment {
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
         });
 
+        viewModel.getActionDelete().observe(getViewLifecycleOwner(), aVoid -> adapter.removeSelectedItems());
+
     }
 }
