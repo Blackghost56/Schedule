@@ -1,8 +1,12 @@
 package com.schedule.adapter;
 
 import android.content.Context;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -19,7 +23,9 @@ import com.schedule.databinding.ItemScheduleBinding;
 import com.schedule.model.TaskModelForList;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -32,6 +38,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public static int UNCHECKED = -1;
     protected int selectedPosition = UNCHECKED;
+
+    protected Set<Integer> selectedItemsSet = new HashSet<>();
 
 
 
@@ -76,7 +84,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             TaskModelForList itemModelOld = itemsList.get(selectedPosition);
             if (itemModelOld != null) {
                 itemModelOld.setExpanded(false);
-                //TransitionManager.beginDelayedTransition(recyclerView);
                 notifyItemChanged(selectedPosition);
             }
         }
@@ -92,8 +99,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         selectedPosition = position;
-//        notifyDataSetChanged();
-        //TransitionManager.beginDelayedTransition(recyclerView);
         notifyItemChanged(selectedPosition);
         onClickCallback(item);
     }
@@ -122,8 +127,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.executePendingBindings();
 
             itemView.setOnClickListener(v -> {
-                Log.d(TAG, "setOnClickListener");
-
                 switch (mode){
                     case SINGLE_SELECT:
                         if (selectedPosition != getAdapterPosition()) {
@@ -131,43 +134,21 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         } else {
                             setSelected(UNCHECKED);
                         }
-//                        TransitionManager.beginDelayedTransition(recyclerView);
                         break;
                     case MULTI_SELECT:
                         model.setSelected(!model.isSelected());
-                        notifyDataSetChanged();
+                        selectedItemsSet.add(getAdapterPosition());
+                        notifyItemChanged(getAdapterPosition());
                         break;
                 }
-                //notifyItemChanged(getAdapterPosition());
             });
 
             itemView.setOnLongClickListener(v -> {
-                Log.d(TAG, "setOnLongClickListener");
-
-
                 toggleMode();
-                //TransitionManager.beginDelayedTransition(recyclerView);
-                switch (mode){
-                    case SINGLE_SELECT:
-                        // Unselect all item
-                        for (TaskModelForList taskModel: itemsList){
-                            taskModel.setSelected(false);
-                            taskModel.setModeMultiSelect(false);
-                        }
-                        break;
-                    case MULTI_SELECT:
-                        // Collapse all item
-                        for (TaskModelForList taskModel: itemsList){
-                            taskModel.setExpanded(false);
-                            taskModel.setModeMultiSelect(true);
-                        }
-                        model.setSelected(true);
-                        break;
-                }
 
-                notifyDataSetChanged();
-                onModeChangedCallback(mode);
-                //notifyItemChanged(getAdapterPosition());
+                if (mode == Mode.MULTI_SELECT)
+                    model.setSelected(true);
+
                 return true;
             });
         }
@@ -176,20 +157,37 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public enum Mode {SINGLE_SELECT, MULTI_SELECT}
     private Mode mode = Mode.SINGLE_SELECT;
-    private void toggleMode(){
+    public void toggleMode(){
         switch (mode){
             case SINGLE_SELECT:
                 mode = Mode.MULTI_SELECT;
 
+                // Collapse all item
+                for (TaskModelForList taskModel: itemsList){
+                    taskModel.setExpanded(false);
+                    taskModel.setModeMultiSelect(true);
+                }
+
+                selectedPosition = UNCHECKED;
+                selectedItemsSet.clear();
 
                 break;
             case MULTI_SELECT:
                 mode = Mode.SINGLE_SELECT;
 
+                // Unselect all item
+                for (TaskModelForList taskModel: itemsList){
+                    taskModel.setSelected(false);
+                    taskModel.setModeMultiSelect(false);
+                }
+                selectedItemsSet.clear();
 
                 break;
         }
-//        onModeChangedCallback(mode);
+        Transition transition = new Fade();
+        TransitionManager.beginDelayedTransition(recyclerView, transition);
+        notifyDataSetChanged();
+        onModeChangedCallback(mode);
     }
 
 
