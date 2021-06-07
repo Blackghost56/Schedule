@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.transition.Slide;
 import android.transition.Transition;
@@ -54,16 +55,16 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ScheduleViewModel.class);
         binding.setViewModel(viewModel);
 
 
         recyclerView = requireActivity().findViewById(R.id.itemList);
 //        // Removes blinks
-//        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.setHasFixedSize(true);
+//        recyclerView.setHasFixedSize(true);
 
         adapter = new ScheduleAdapter(requireContext(), viewModel.getItemList(), -1);
         adapter.registerCallback(new ScheduleAdapter.Callback<Task>() {

@@ -27,6 +27,7 @@
     <string name="schedule_edit_switch_repeat">"Repeat weekly  "</string>
     <string name="schedule_edit_button_create">Create</string>
     <string name="schedule_edit_button_сancel">Cancel</string>
+    <string name="schedule_edit_button_delete">Delete</string>
     <string name="schedule_edit_ready">Ready</string>
     <string name="schedule_edit_settings">Settings</string>
 

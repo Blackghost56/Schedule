@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
+        android:animateLayoutChanges="false"
         tools:context=".fragment.MainFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -24,7 +24,6 @@
 
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        app:fabCustomSize="64dp"-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
@@ -47,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/gray"
                 android:contentDescription="@string/schedule_edit_button_create"
-                android:onClick="@{()-> viewModel.onFABPressed()}"
+                android:onClick="@{()-> viewModel.onFABCreatePressed()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/gray"
-                android:clickable="true"
+                android:contentDescription="@string/schedule_edit_button_delete"
+                android:onClick="@{()-> viewModel.onFABDeletePressed()}"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

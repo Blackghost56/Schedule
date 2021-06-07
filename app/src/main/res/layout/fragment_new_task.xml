@@ -9,10 +9,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.schedule.model.NewTaskViewModel" />
+            type="com.schedule.model.ScheduleViewModel" />
         <variable
             name="taskModel"
-            type="com.schedule.model.TaskModel" />
+            type="com.schedule.model.TaskModelForNT" />
         <import type="android.view.View"/>
     </data>
 
@@ -118,7 +118,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.leftTimeText}"
+            android:text="@{taskModel.leftTimeText}"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/timePicker"
             app:layout_constraintEnd_toEndOf="parent"
@@ -187,7 +187,7 @@
             android:text="@string/schedule_edit_button_create"
             android:textColor="?attr/colorControlNormal"
             android:textSize="17sp"
-            android:onClick="@{() -> viewModel.onCreatePressed()}"
+            android:onClick="@{() -> viewModel.onCreatePressedNT()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

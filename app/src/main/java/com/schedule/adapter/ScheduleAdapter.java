@@ -74,8 +74,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         // turn off the last selection
         if (selectedPosition != UNCHECKED && !itemsList.isEmpty()) {
             TaskModelForList itemModelOld = itemsList.get(selectedPosition);
-            if (itemModelOld != null)
+            if (itemModelOld != null) {
                 itemModelOld.setExpanded(false);
+                //TransitionManager.beginDelayedTransition(recyclerView);
+                notifyItemChanged(selectedPosition);
+            }
         }
 
         // turn on the new selection
@@ -89,7 +92,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         selectedPosition = position;
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
+        //TransitionManager.beginDelayedTransition(recyclerView);
+        notifyItemChanged(selectedPosition);
         onClickCallback(item);
     }
 
@@ -116,20 +121,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.setViewModel(model);
             binding.executePendingBindings();
 
-//            SwitchCompat switchCompat = itemView.findViewById(R.id.switchEnable);
-//            switchCompat.setThumbDrawable();
-//            switchCompat.setTrackDrawable();
-
             itemView.setOnClickListener(v -> {
                 Log.d(TAG, "setOnClickListener");
-//                Task task = binding.getViewModel().getItem();
-//                onClickCallback(task);
-
-//                if (selectedPosition != getAdapterPosition()) {
-//                    setSelected(getAdapterPosition());
-//                } else {
-//                    setSelected(UNCHECKED);
-//                }
 
                 switch (mode){
                     case SINGLE_SELECT:
@@ -138,7 +131,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         } else {
                             setSelected(UNCHECKED);
                         }
-                        TransitionManager.beginDelayedTransition(recyclerView);
+//                        TransitionManager.beginDelayedTransition(recyclerView);
                         break;
                     case MULTI_SELECT:
                         model.setSelected(!model.isSelected());
@@ -153,7 +146,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
                 toggleMode();
-                TransitionManager.beginDelayedTransition(recyclerView);
+                //TransitionManager.beginDelayedTransition(recyclerView);
                 switch (mode){
                     case SINGLE_SELECT:
                         // Unselect all item
@@ -161,8 +154,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             taskModel.setSelected(false);
                             taskModel.setModeMultiSelect(false);
                         }
-//                        TransitionManager.beginDelayedTransition(recyclerView);
-//                        model.setSelected(false);
                         break;
                     case MULTI_SELECT:
                         // Collapse all item
@@ -170,15 +161,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             taskModel.setExpanded(false);
                             taskModel.setModeMultiSelect(true);
                         }
-//                        TransitionManager.beginDelayedTransition(recyclerView);
                         model.setSelected(true);
-//                        model.setSelected(!model.isSelected());
                         break;
                 }
-                //model.setSelected(!model.isSelected());
-//                if (model.isSelected()){
-//                    model.setExpanded(false);
-//                }
 
                 notifyDataSetChanged();
                 onModeChangedCallback(mode);

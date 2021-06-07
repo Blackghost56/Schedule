@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.schedule.R;
 import com.schedule.databinding.FragmentNewTaskBinding;
-import com.schedule.model.NewTaskViewModel;
+import com.schedule.model.ScheduleViewModel;
 
 public class NewTaskFragment extends Fragment {
 
@@ -38,9 +38,9 @@ public class NewTaskFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        NewTaskViewModel viewModel = new ViewModelProvider(this).get(NewTaskViewModel.class);
+        ScheduleViewModel viewModel = new ViewModelProvider(requireActivity()).get(ScheduleViewModel.class);
         binding.setViewModel(viewModel);
-        binding.setTaskModel(viewModel.getTaskModel());
+        binding.setTaskModel(viewModel.getTaskModelForNT());
 
         viewModel.getActionPopBackStack().observe(getViewLifecycleOwner(), aVoid -> requireActivity().getSupportFragmentManager().popBackStack());
     }

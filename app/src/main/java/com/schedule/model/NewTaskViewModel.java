@@ -25,7 +25,7 @@ public class NewTaskViewModel extends AndroidViewModel {
 
     public ObservableField<String> leftTimeText = new ObservableField<>("");
 
-    private final TaskModel taskModel;
+    private TaskModel taskModel = null;
     public TaskModel getTaskModel(){
         return taskModel;
     }
