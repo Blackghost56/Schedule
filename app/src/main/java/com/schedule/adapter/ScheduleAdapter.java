@@ -22,7 +22,6 @@ import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
 //    final private String TAG = ScheduleAdapter.class.getSimpleName();
 
     protected List<TaskModelForAdapter> itemsList;

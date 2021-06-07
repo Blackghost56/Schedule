@@ -26,16 +26,10 @@ import com.schedule.activity.ScheduleActivity;
 import com.schedule.adapter.ScheduleAdapter;
 import com.schedule.databinding.FragmentMainBinding;
 import com.schedule.model.ScheduleViewModel;
-import com.schedule.model.TaskModelForAdapter;
-
-import java.util.List;
 
 public class MainFragment extends Fragment implements ScheduleActivity.BackPressed {
 
-    private final String TAG = MainFragment.class.getSimpleName();
-
-    //todo
-//    protected final String SELECTED_ID = "selected_id";
+//    private final String TAG = MainFragment.class.getSimpleName();
 
     private ScheduleViewModel viewModel;
     private FragmentMainBinding binding;
@@ -68,8 +62,8 @@ public class MainFragment extends Fragment implements ScheduleActivity.BackPress
         RecyclerView recyclerView = requireActivity().findViewById(R.id.itemList);
 //        // Removes blinks
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        recyclerView.setHasFixedSize(true);
 
         adapter = new ScheduleAdapter(requireContext(), viewModel.getItemList(), viewModel.getMode());
@@ -90,9 +84,7 @@ public class MainFragment extends Fragment implements ScheduleActivity.BackPress
         recyclerView.setAdapter(adapter);
 
 
-        viewModel.getActionOpenFragment().observe(getViewLifecycleOwner(), fragment -> {
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
-        });
+        viewModel.getActionOpenFragment().observe(getViewLifecycleOwner(), fragment -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit());
 
         viewModel.getActionDelete().observe(getViewLifecycleOwner(), aVoid -> adapter.removeSelectedItems());
     }

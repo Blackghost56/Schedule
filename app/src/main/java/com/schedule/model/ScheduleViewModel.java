@@ -1,7 +1,6 @@
 package com.schedule.model;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class ScheduleViewModel extends AndroidViewModel {
 
-    private final String TAG = ScheduleViewModel.class.getSimpleName();
+//    private final String TAG = ScheduleViewModel.class.getSimpleName();
 
     public ScheduleViewModel(@NonNull Application application) {
         super(application);
@@ -52,68 +51,68 @@ public class ScheduleViewModel extends AndroidViewModel {
             taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
             itemList.add(taskModel);
 
-            task = new Task();
-            task.isEnabled = false;
-            task.timeOfDay.setValue(542);
-            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
-            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
-            task.repeat = false;
-            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
-            itemList.add(taskModel);
-
-            task = new Task();
-            task.isEnabled = false;
-            task.timeOfDay.setValue(542);
-            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
-            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
-            task.repeat = false;
-            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
-            itemList.add(taskModel);
-
-            task = new Task();
-            task.isEnabled = false;
-            task.timeOfDay.setValue(542);
-            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
-            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
-            task.repeat = false;
-            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
-            itemList.add(taskModel);
-
-            task = new Task();
-            task.isEnabled = false;
-            task.timeOfDay.setValue(542);
-            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
-            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
-            task.repeat = false;
-            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
-            itemList.add(taskModel);
-
-            task = new Task();
-            task.isEnabled = false;
-            task.timeOfDay.setValue(542);
-            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
-            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
-            task.repeat = false;
-            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
-            itemList.add(taskModel);
-
-            task = new Task();
-            task.isEnabled = false;
-            task.timeOfDay.setValue(542);
-            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
-            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
-            task.repeat = false;
-            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
-            itemList.add(taskModel);
-
-            task = new Task();
-            task.isEnabled = false;
-            task.timeOfDay.setValue(542);
-            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
-            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
-            task.repeat = false;
-            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
-            itemList.add(taskModel);
+//            task = new Task();
+//            task.isEnabled = false;
+//            task.timeOfDay.setValue(542);
+//            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+//            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+//            task.repeat = false;
+//            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+//            itemList.add(taskModel);
+//
+//            task = new Task();
+//            task.isEnabled = false;
+//            task.timeOfDay.setValue(542);
+//            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+//            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+//            task.repeat = false;
+//            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+//            itemList.add(taskModel);
+//
+//            task = new Task();
+//            task.isEnabled = false;
+//            task.timeOfDay.setValue(542);
+//            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+//            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+//            task.repeat = false;
+//            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+//            itemList.add(taskModel);
+//
+//            task = new Task();
+//            task.isEnabled = false;
+//            task.timeOfDay.setValue(542);
+//            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+//            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+//            task.repeat = false;
+//            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+//            itemList.add(taskModel);
+//
+//            task = new Task();
+//            task.isEnabled = false;
+//            task.timeOfDay.setValue(542);
+//            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+//            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+//            task.repeat = false;
+//            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+//            itemList.add(taskModel);
+//
+//            task = new Task();
+//            task.isEnabled = false;
+//            task.timeOfDay.setValue(542);
+//            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+//            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+//            task.repeat = false;
+//            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+//            itemList.add(taskModel);
+//
+//            task = new Task();
+//            task.isEnabled = false;
+//            task.timeOfDay.setValue(542);
+//            task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
+//            task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
+//            task.repeat = false;
+//            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+//            itemList.add(taskModel);
         } catch (Exception e) {
             e.printStackTrace();
         }
