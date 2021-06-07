@@ -10,6 +10,9 @@
         <variable
             name="viewModel"
             type="com.schedule.model.NewTaskViewModel" />
+        <variable
+            name="taskModel"
+            type="com.schedule.model.TaskModel" />
         <import type="android.view.View"/>
     </data>
 
@@ -32,13 +35,12 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:onTimeChanged="@{(view, hour, minute) -> viewModel.onNumChange(hour, minute)}"
+            app:onTimeChanged="@{(view, hour, minute) -> taskModel.onNumChange(hour, minute)}"
             >
 
         </com.schedule.tools.TimePicker>
 
 
-        <!--        android:visibility="@{viewModel.enableDays ? View.VISIBLE : View.GONE}"-->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup2"
             android:layout_width="0dp"
@@ -58,56 +60,56 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.stateMonday}"
-                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
+                android:checked="@={taskModel.stateMonday}"
+                android:onClick="@{() -> taskModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_monday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.stateTuesday}"
-                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
+                android:checked="@={taskModel.stateTuesday}"
+                android:onClick="@{() -> taskModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_tuesday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.stateWednesday}"
-                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
+                android:checked="@={taskModel.stateWednesday}"
+                android:onClick="@{() -> taskModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_wednesday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.stateThursday}"
-                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
+                android:checked="@={taskModel.stateThursday}"
+                android:onClick="@{() -> taskModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_thursday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.stateFriday}"
-                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
+                android:checked="@={taskModel.stateFriday}"
+                android:onClick="@{() -> taskModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_friday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.stateSaturday}"
-                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
+                android:checked="@={taskModel.stateSaturday}"
+                android:onClick="@{() -> taskModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_saturday_s" />
 
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@={viewModel.stateSunday}"
-                android:onClick="@{() -> viewModel.onSelectDaysGroupPressed()}"
+                android:checked="@={taskModel.stateSunday}"
+                android:onClick="@{() -> taskModel.onSelectDaysGroupPressed()}"
                 android:text="@string/schedule_repeat_sunday_s" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -156,9 +158,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.16" />
 
-<!--        android:thumb="@drawable/switch_thumb"-->
-<!--        android:theme="@style/Theme.Schedule.Switch"-->
-
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchRepeat"
             android:layout_width="wrap_content"
@@ -174,11 +173,9 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup2"
-            app:onCheckedChange="@{(buttonView, isChecked) -> viewModel.onRepeatChanged(isChecked)}" />
+            app:onCheckedChange="@{(buttonView, isChecked) -> taskModel.onRepeatChanged(isChecked)}" />
 
-<!--        android:backgroundTint="@color/selector_button_gray"-->
-<!--        android:drawableLeft="@drawable/ic_round_add_24"-->
-<!--        android:textColor="@color/colorControlNormal"-->
+
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"

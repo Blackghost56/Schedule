@@ -1,8 +1,6 @@
 package com.schedule.fragment;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -12,9 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
@@ -28,7 +24,6 @@ import com.schedule.R;
 import com.schedule.Task;
 import com.schedule.adapter.ScheduleAdapter;
 import com.schedule.databinding.FragmentMainBinding;
-import com.schedule.dialog.AreYouSureDialog;
 import com.schedule.model.ScheduleViewModel;
 
 public class MainFragment extends Fragment {
@@ -49,38 +44,12 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_main, container, false);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
         return binding.getRoot();
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        viewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
-//        binding.setViewModel(viewModel);
-//
-//
-//
-////        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
-////
-////        fab.setOnClickListener(v -> {
-////            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, NewTask.newInstance()).addToBackStack(null).commit();
-////        });
-//    }
 
-
-    /**
-     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
-     * has returned, but before any saved state has been restored in to the view.
-     * This gives subclasses a chance to initialize themselves once
-     * they know their view hierarchy has been completely created.  The fragment's
-     * view hierarchy is not however attached to its parent at this point.
-     *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -110,19 +79,19 @@ public class MainFragment extends Fragment {
 
             @Override
             public void modeChanged(ScheduleAdapter.Mode mode) {
-                FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.floatingActionButton);
-                FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+                FloatingActionButton fabDelete = getActivity().findViewById(R.id.fabDelete);
+                FloatingActionButton fabCreate = getActivity().findViewById(R.id.fabCreate);
                 Transition transition = new Slide(Gravity.BOTTOM);
-                TransitionManager.beginDelayedTransition((ViewGroup) floatingActionButton.getParent(), transition);
+                TransitionManager.beginDelayedTransition((ViewGroup) fabDelete.getParent(), transition);
 
                 switch (mode){
                     case SINGLE_SELECT:
-                        floatingActionButton.setVisibility(View.GONE);
-                        fab.setVisibility(View.VISIBLE);
+                        fabDelete.setVisibility(View.GONE);
+                        fabCreate.setVisibility(View.VISIBLE);
                         break;
                     case MULTI_SELECT:
-                        fab.setVisibility(View.GONE);
-                        floatingActionButton.setVisibility(View.VISIBLE);
+                        fabCreate.setVisibility(View.GONE);
+                        fabDelete.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -133,13 +102,7 @@ public class MainFragment extends Fragment {
 
         viewModel.getActionOpenFragment().observe(getViewLifecycleOwner(), fragment -> {
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
-//            requireActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.container, fragment).addToBackStack(null).commit();
-
         });
 
-//        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
-//        fab.setOnClickListener(v -> {
-//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, NewTask.newInstance()).addToBackStack(null).commit();
-//        });
     }
 }

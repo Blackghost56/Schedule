@@ -1,12 +1,8 @@
 package com.schedule.adapter;
 
 import android.content.Context;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -20,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.schedule.R;
 import com.schedule.Task;
 import com.schedule.databinding.ItemScheduleBinding;
-import com.schedule.model.TaskModel;
+import com.schedule.model.TaskModelForList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +27,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     final private String TAG = ScheduleAdapter.class.getSimpleName();
 
-    protected List<TaskModel> itemsList = new ArrayList<>();
+    protected List<TaskModelForList> itemsList = new ArrayList<>();
     protected Context context;
 
     public static int UNCHECKED = -1;
@@ -46,7 +42,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (itemsList1 != null) {
                 this.itemsList.clear();
                 for (Task item : itemsList1) {
-                    TaskModel itemModel = new TaskModel(context, item);
+                    TaskModelForList itemModel = new TaskModelForList(context, item);
                     this.itemsList.add(itemModel);
                 }
 
@@ -77,7 +73,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setSelected(int position) {
         // turn off the last selection
         if (selectedPosition != UNCHECKED && !itemsList.isEmpty()) {
-            TaskModel itemModelOld = itemsList.get(selectedPosition);
+            TaskModelForList itemModelOld = itemsList.get(selectedPosition);
             if (itemModelOld != null)
                 itemModelOld.setExpanded(false);
         }
@@ -85,10 +81,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         // turn on the new selection
         Task item = null;
         if (position != UNCHECKED){
-            TaskModel itemModel = itemsList.get(position);
+            TaskModelForList itemModel = itemsList.get(position);
             if (itemModel != null) {
                 itemModel.setExpanded(true);
-                item = itemModel.getItem();
+                item = itemModel.getTask();
             }
         }
 
@@ -116,7 +112,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.binding = binding;
         }
 
-        public void bind(TaskModel model){
+        public void bind(TaskModelForList model){
             binding.setViewModel(model);
             binding.executePendingBindings();
 
@@ -161,7 +157,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 switch (mode){
                     case SINGLE_SELECT:
                         // Unselect all item
-                        for (TaskModel taskModel: itemsList){
+                        for (TaskModelForList taskModel: itemsList){
                             taskModel.setSelected(false);
                             taskModel.setModeMultiSelect(false);
                         }
@@ -170,7 +166,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         break;
                     case MULTI_SELECT:
                         // Collapse all item
-                        for (TaskModel taskModel: itemsList){
+                        for (TaskModelForList taskModel: itemsList){
                             taskModel.setExpanded(false);
                             taskModel.setModeMultiSelect(true);
                         }

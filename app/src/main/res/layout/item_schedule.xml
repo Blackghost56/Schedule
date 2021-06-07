@@ -11,7 +11,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.schedule.model.TaskModel" />
+            type="com.schedule.model.TaskModelForList" />
         <import type="android.view.View"/>
         <import type="com.schedule.Task"/>
         <import type="com.schedule.Task.TimeOfDay"/>
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.time}"
                 android:textColor="@{ContextCompat.getColor(context, viewModel.timeColor)}"
-                android:textSize="28dp"
+                android:textSize="@dimen/text_size_schedule_main"
                 app:layout_constraintBottom_toTopOf="@+id/textViewAdditional"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -91,7 +91,8 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.42000002"
-                app:srcCompat="@drawable/check_selector" />
+                app:srcCompat="@drawable/check_selector"
+                tools:ignore="ContentDescription" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchEnable"
@@ -131,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="@{viewModel.isExpanded ? View.VISIBLE : View.GONE}"
-                app:initValue="@{viewModel.item.timeOfDay}"
+                app:initValue="@{viewModel.task.timeOfDay}"
                 app:initValueMode="value"
                 app:layout_constraintBottom_toTopOf="@+id/chipGroup2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -234,35 +235,20 @@
                 android:id="@+id/switchRepeat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="@{viewModel.item.repeat}"
+                android:checked="@{viewModel.task.repeat}"
                 android:text="@string/schedule_edit_switch_repeat"
                 android:textSize="18sp"
                 android:thumb="@drawable/switch_repeat_thumb_selector"
-                android:visibility="@{viewModel.isExpanded ? View.VISIBLE : View.GONE}"
 
-                app:layout_constraintBottom_toTopOf="@+id/guideline3"
+
+                android:visibility="@{viewModel.isExpanded ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chipGroup2"
                 app:onCheckedChange="@{(buttonView, isChecked) -> viewModel.onRepeatChanged(isChecked)}"
                 app:track="@drawable/switch_track_selector" />
-
-
-            <!--            <CheckBox-->
-            <!--                android:id="@+id/radioButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:clickable="true"-->
-            <!--                android:focusable="true"-->
-            <!--                android:visibility="@{viewModel.isSelected ? View.VISIBLE : View.GONE}"-->
-            <!--                app:layout_constraintBottom_toBottomOf="@+id/textViewAdditional"-->
-            <!--                app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
-            <!--                app:layout_constraintHorizontal_bias="1.0"-->
-            <!--                app:layout_constraintStart_toStartOf="@+id/guideline5"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                app:layout_constraintVertical_bias="0.2"-->
-            <!--                 />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
