@@ -11,7 +11,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.schedule.model.TaskModelForList" />
+            type="com.schedule.model.TaskModelForAdapter" />
         <import type="android.view.View"/>
         <import type="com.schedule.Task"/>
         <import type="com.schedule.Task.TimeOfDay"/>
@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
+            android:animateLayoutChanges="true"
             android:paddingTop="8dp"
             android:paddingBottom="8dp">
 

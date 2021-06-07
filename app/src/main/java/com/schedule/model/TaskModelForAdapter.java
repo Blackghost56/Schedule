@@ -10,7 +10,7 @@ import com.schedule.R;
 import com.schedule.Task;
 
 
-public class TaskModelForList extends TaskModel {
+public class TaskModelForAdapter extends TaskModel {
 
     public ObservableBoolean isSelected = new ObservableBoolean(false);
     public ObservableBoolean isExpanded = new ObservableBoolean(false);
@@ -43,7 +43,7 @@ public class TaskModelForList extends TaskModel {
 
     private final Context context;
 
-    public TaskModelForList(Context context, Task item) {
+    public TaskModelForAdapter(Context context, Task item) {
         super(item);
 
         this.context = context;

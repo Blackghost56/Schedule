@@ -1,14 +1,14 @@
 package com.schedule.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
+import com.schedule.adapter.ScheduleAdapter;
 import com.schedule.fragment.NewTaskFragment;
 import com.schedule.Task;
 import com.schedule.tools.SingleLiveEvent;
@@ -24,16 +24,15 @@ public class ScheduleViewModel extends AndroidViewModel {
 
     public ScheduleViewModel(@NonNull Application application) {
         super(application);
-
-
-        List<Task> list = new ArrayList<>();
+        // ToDo load from device
         try {
             Task task = new Task();
             task.isEnabled = true;
             task.timeOfDay.setValueHM(12, 34);
             task.daysOfWeek.add(Task.DayOfWeek.FRIDAY);
             task.repeat = true;
-            list.add(task);
+            TaskModelForAdapter taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -41,7 +40,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.MONDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -49,7 +49,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -57,7 +58,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -65,7 +67,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -73,7 +76,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -81,7 +85,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -89,7 +94,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -97,7 +103,8 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
 
             task = new Task();
             task.isEnabled = false;
@@ -105,16 +112,25 @@ public class ScheduleViewModel extends AndroidViewModel {
             task.daysOfWeek.add(Task.DayOfWeek.SATURDAY);
             task.daysOfWeek.add(Task.DayOfWeek.THURSDAY);
             task.repeat = false;
-            list.add(task);
+            taskModel = new TaskModelForAdapter(getApplication().getApplicationContext(), task);
+            itemList.add(taskModel);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        itemList.setValue(list);
     }
 
-    private MutableLiveData<List<Task>> itemList = new MutableLiveData<>();
-    public LiveData<List<Task>> getItemList(){
+    private ScheduleAdapter.Mode mode = ScheduleAdapter.Mode.SINGLE_SELECT;
+    public ScheduleAdapter.Mode getMode() {
+        return mode;
+    }
+
+    public void onModeChanged(ScheduleAdapter.Mode mode){
+        this.mode = mode;
+    }
+
+
+    private final List<TaskModelForAdapter> itemList = new ArrayList<>();
+    public List<TaskModelForAdapter> getItemList(){
         return itemList;
     }
 
@@ -151,6 +167,14 @@ public class ScheduleViewModel extends AndroidViewModel {
         actionDelete.call();
     }
 
+//    public void onItemsRemoved(List<TaskModelForAdapter> removedItems){
+//        Log.d(TAG, "onItemsRemoved, count: " + removedItems.size());
+//        for (TaskModelForAdapter model: removedItems){
+//            Log.d(TAG, model.getTask().timeToStr(getApplication().getApplicationContext()));
+//            Log.d(TAG, "----------");
+//        }
+//    }
+
 
     private TaskModelForNT taskModelForNT;
     public TaskModelForNT getTaskModelForNT(){
@@ -161,11 +185,17 @@ public class ScheduleViewModel extends AndroidViewModel {
         Task task = taskModelForNT.getTask();
         task.isEnabled = true;
 
-        List<Task> list = itemList.getValue();
-        list.add(task);
-        itemList.setValue(list);
+        itemList.add(new TaskModelForAdapter(getApplication().getApplicationContext(), task));
 
         actionPopBackStack.call();
+    }
+
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+
+        // ToDo save data to device
     }
 
 

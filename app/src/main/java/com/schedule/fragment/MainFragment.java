@@ -22,12 +22,15 @@ import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.schedule.R;
-import com.schedule.Task;
+import com.schedule.activity.ScheduleActivity;
 import com.schedule.adapter.ScheduleAdapter;
 import com.schedule.databinding.FragmentMainBinding;
 import com.schedule.model.ScheduleViewModel;
+import com.schedule.model.TaskModelForAdapter;
 
-public class MainFragment extends Fragment {
+import java.util.List;
+
+public class MainFragment extends Fragment implements ScheduleActivity.BackPressed {
 
     private final String TAG = MainFragment.class.getSimpleName();
 
@@ -36,8 +39,9 @@ public class MainFragment extends Fragment {
 
     private ScheduleViewModel viewModel;
     private FragmentMainBinding binding;
-    private RecyclerView recyclerView;
-    protected ScheduleAdapter adapter;
+    private ScheduleAdapter adapter;
+    private FloatingActionButton fabDelete;
+    private FloatingActionButton fabCreate;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -58,44 +62,29 @@ public class MainFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(ScheduleViewModel.class);
         binding.setViewModel(viewModel);
 
+        fabDelete = getActivity().findViewById(R.id.fabDelete);
+        fabCreate = getActivity().findViewById(R.id.fabCreate);
 
-        recyclerView = requireActivity().findViewById(R.id.itemList);
+        RecyclerView recyclerView = requireActivity().findViewById(R.id.itemList);
 //        // Removes blinks
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 //        recyclerView.setHasFixedSize(true);
 
-        adapter = new ScheduleAdapter(requireContext(), viewModel.getItemList(), -1);
-        adapter.registerCallback(new ScheduleAdapter.Callback<Task>() {
+        adapter = new ScheduleAdapter(requireContext(), viewModel.getItemList(), viewModel.getMode());
+        updateFAB();
+        adapter.registerCallback(new ScheduleAdapter.Callback() {
             @Override
-            public void onClick(Task item) {
-
+            public void onModeChanged(ScheduleAdapter.Mode mode) {
+                viewModel.onModeChanged(mode);
+                updateFAB();
             }
 
-            @Override
-            public void onLongClick(Task item) {
-
-            }
-
-            @Override
-            public void modeChanged(ScheduleAdapter.Mode mode) {
-                FloatingActionButton fabDelete = getActivity().findViewById(R.id.fabDelete);
-                FloatingActionButton fabCreate = getActivity().findViewById(R.id.fabCreate);
-                Transition transition = new Slide(Gravity.BOTTOM);
-                TransitionManager.beginDelayedTransition((ViewGroup) fabDelete.getParent(), transition);
-
-                switch (mode){
-                    case SINGLE_SELECT:
-                        fabDelete.setVisibility(View.GONE);
-                        fabCreate.setVisibility(View.VISIBLE);
-                        break;
-                    case MULTI_SELECT:
-                        fabCreate.setVisibility(View.GONE);
-                        fabDelete.setVisibility(View.VISIBLE);
-                        break;
-                }
-            }
+//            @Override
+//            public void onItemsRemoved(List<TaskModelForAdapter> removedItems) {
+//                viewModel.onItemsRemoved(removedItems);
+//            }
         });
 
         recyclerView.setAdapter(adapter);
@@ -106,6 +95,31 @@ public class MainFragment extends Fragment {
         });
 
         viewModel.getActionDelete().observe(getViewLifecycleOwner(), aVoid -> adapter.removeSelectedItems());
+    }
 
+    private void updateFAB(){
+        Transition transition = new Slide(Gravity.BOTTOM);
+        TransitionManager.beginDelayedTransition((ViewGroup) fabDelete.getParent(), transition);
+
+        switch (viewModel.getMode()){
+            case SINGLE_SELECT:
+                fabDelete.setVisibility(View.GONE);
+                fabCreate.setVisibility(View.VISIBLE);
+                break;
+            case MULTI_SELECT:
+                fabCreate.setVisibility(View.GONE);
+                fabDelete.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+
+
+    @Override
+    public boolean onBackPressed() {
+        if (adapter != null && (adapter.getMode() == ScheduleAdapter.Mode.MULTI_SELECT)) {
+            adapter.toggleMode();
+            return true;
+        }
+        return false;
     }
 }
